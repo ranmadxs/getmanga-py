@@ -10,6 +10,7 @@ UNIQUE = '-U'
 CAPITULOS = '-C'
 HELP = '--help'
 H = '-h'
+L = 'L'
 
 class ParamDescarga(AbstractUtilDTO):
     tipo=None
