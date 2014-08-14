@@ -18,9 +18,13 @@ if len(args) > 0 and (args[1] == TYPE.HELP or args[1] == TYPE.H):
     print(" -h   -- help         Muestra la ayuda, no requiere código del manga ni número del capítulo")
     print(" -U                   Descarga un único capítulo")
     print(" -C                   Descarga las carátulas del manga, no requiere número del capítulo (desarrollo)")
-    print(" -L                   Lista los mangas que se encuentran en config.py (desarrollo)")
+    print(" -L                   Lista los mangas que se encuentran en config.py")
     sys.exit(0)
 
+if len(args) > 0 and (args[1] == TYPE.L):
+    for manga in mangas:
+        print manga
+    sys.exit(0)
 log.debug('>> Inicio getManga <<')
 
 if(len(args) < 2):
