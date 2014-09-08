@@ -24,16 +24,17 @@ print 'Inicio Test'
 
 #MangaFile.renombrarArchivos('/media/Shampoo/Manga/uzumaki/01 Uzumaki C001-006/C05/', '')
 
-paramDescarga = ParamDescarga(138, TYPE.UNIQUE)
-descargarManga('claymore2', paramDescarga)
-sys.exit(0)
+#print mangas["shingeki_no_kyojin"]
+#paramDescarga = ParamDescarga(138, TYPE.UNIQUE)
+#descargarManga('claymore2', paramDescarga)
+#sys.exit(0)
 
-'''
-manga = mangas['claymore2']
-paramDescarga = ParamDescarga(138, TYPE.UNIQUE)
-MangaGet.lstCapitulos(manga, paramDescarga)
+manga = mangas['dorohedoro']
+paramDescarga = ParamDescarga(None, None)
+#paramDescarga = ParamDescarga(138, TYPE.UNIQUE)
+manga = MangaGet.lstCapitulos(manga, paramDescarga)
 log.info(manga)
-'''
+
 #pat = re.compile('<select class="cbo_wpm_chp" onchange="[^"]+">(.+?)</select>')
 '''
 pat = re.compile('<a href="(.+?)" title="(.+?)">')

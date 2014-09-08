@@ -14,6 +14,9 @@ eshentaionline = "eshentaionline.com"
 submanga = "submanga.com"
 mangaCovers="http://manga.joentjuh.nl/series/%s/"
 mangas = {
+    "dorohedoro"        : Manga("dorohedoro", esmangaonline, (mangaCovers%"209")),
+    "Doubt"             : Manga("Doubt", submanga),
+    "shingeki_no_kyojin": Manga("shingeki_no_kyojin", esmangaonline, (mangaCovers%"47446")),
     "noblesse"          : Manga("noblesse", esmangaonline),
     "noblesse2"         : Manga("noblesse", submanga),
     "majutsu"           : Manga("to_aru_majutsu_no_index", esmangaonline),

@@ -58,7 +58,8 @@ def obtenerURLCaps(manga = Manga):
     manga.url = 'http://%s/%s/'%(manga.site, manga.code)
     log.info("http.request[lstCapitulos] ==> %s"%manga.url)  
     http = httplib2.Http()
-    headers, body = http.request(manga.url)        
-    caps = pat.findall(body)
+    headers, body = http.request(manga.url)
+    varContenidoHtml = body        
+    caps = pat.findall(varContenidoHtml)
     urlCapitulo = caps[0][0]
     return urlCapitulo

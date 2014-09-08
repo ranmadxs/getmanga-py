@@ -22,7 +22,8 @@ def obtenerCapitulos(manga = Manga, urlCapitulos = '', parametros = ParamDescarg
     lst=[]
     log.info("http.request[lstCapitulos] ==> %s"%urlCapitulos) 
     headers, body = http.request(urlCapitulos)
-    li = pat.findall(body)
+    varContenidoHtml = body 
+    li = pat.findall(varContenidoHtml)
     for elem in li:    
         strOption = str(elem)
         strOption = strOption.replace('<strong>', '')
