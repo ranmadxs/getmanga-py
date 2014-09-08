@@ -55,11 +55,13 @@ def obtenerCapitulos(manga = Manga, urlCapitulos = '', parametros = ParamDescarg
 
 def obtenerURLCaps(manga = Manga):
     pat = re.compile(CONST_EXP_LST_CAPITULOS)    
+    urlCapitulo = None
     manga.url = 'http://%s/%s/'%(manga.site, manga.code)
     log.info("http.request[lstCapitulos] ==> %s"%manga.url)  
     http = httplib2.Http()
     headers, body = http.request(manga.url)
     varContenidoHtml = body        
     caps = pat.findall(varContenidoHtml)
-    urlCapitulo = caps[0][0]
+    if caps != None:
+        urlCapitulo = caps[0][0]
     return urlCapitulo
