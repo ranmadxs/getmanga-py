@@ -22,16 +22,16 @@ def obtenerCapitulos(manga = Manga, urlCapitulos = '', parametros = ParamDescarg
     lst=[]
     log.info("http.request[lstCapitulos] ==> %s"%urlCapitulos) 
     headers, body = http.request(urlCapitulos)
-    varContenidoHtml = body 
-    li = pat.findall(varContenidoHtml)
+    log.file(body)
+    li = pat.findall("%s"%body)
+    log.file(li)
     for elem in li:    
         strOption = str(elem)
         strOption = strOption.replace('<strong>', '')
         strOption = strOption.replace('</strong>', '')
         pat2 = re.compile('<a href="(.+?)">(.+?)</a>')
-        cap = pat2.findall(strOption)
-        lstCaps.append(cap)
-    
+        cap = pat2.findall("%s"%strOption)
+        lstCaps.append(cap)    
     total = len(lstCaps) 
     manga.length = total
     totPre = len(str(total))

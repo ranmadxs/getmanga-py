@@ -18,14 +18,14 @@ def obtenerCaratulas(manga = Manga):
         pat = re.compile('<a href="(.+?)" title="(.+?)">')
         http = httplib2.Http()
         headers, body = http.request(manga.cover)
-        li = pat.findall(body)
+        li = pat.findall("%s"%body)
         for elem in li:
             log.debug("%s (%s)" %( elem[1], elem[0]))
             headers, body = http.request(elem[0])    
             rex = re.compile(r'<div class="raw_links clear">(.*?)<div class="block" id="unsorted" style="margin-top:5px;padding-top:10px;text-align:center;">',re.S|re.M)
-            match = rex.findall(body)                
+            match = rex.findall("%s"%body)                
             pat = re.compile('<a href="(.+?)">')
-            imagenes = pat.findall(match[0])
+            imagenes = pat.findall("%s"%match[0])
             for img in imagenes:                
                 descargarImagenCover(dirName, img)
 

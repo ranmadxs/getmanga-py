@@ -39,17 +39,17 @@ def lstImagenes(manga = Manga, capitulo = Capitulo):
     if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
         pat = re.compile(CONST_EXP_LST_IMAGENES)
         headers, body = http.request(capitulo.url)        
-        optionsImgs = pat.findall(body)
+        optionsImgs = pat.findall("%s"%body)
         if(len(optionsImgs) > 0):
             strOptions = str(optionsImgs[0])
             strOptions = strOptions.replace('selected="selected"', '')
             pat = re.compile(CONST_EXP_LST_IMG_OPTION)
-            numberImgs = pat.findall(strOptions)
+            numberImgs = pat.findall("%s"%strOptions)
     if(manga.site == config.submanga):        
         pat = re.compile('<option value="[^"]+">(.+?)</option>')
         headers, body = http.request(capitulo.url) 
         body = body.replace(' selected', '')
-        numberImgs = pat.findall(body)
+        numberImgs = pat.findall("%s"%body)
         separadorFin = "/"    
     for codeImg in numberImgs:
         imagen = Imagen(codeImg, '%s%s%s'%(capitulo.url, separadorFin, codeImg))
@@ -64,7 +64,9 @@ def obtenerImagen(manga = Manga, imagen = Imagen):
         pat = re.compile('</script><a href="[^"]+"><img src="(.+?)"/></a><br/>')
     log.info("http.request[obtenerImagen] ==> %s"%imagen.url)
     headers, body = http.request(imagen.url)
-    arrayImagen = pat.findall(body)
+    log.file(body)
+    arrayImagen = pat.findall("%s"%body)
+    log.file(arrayImagen)
     for img in arrayImagen: 
         if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
             imagen.urlReal = img[0]

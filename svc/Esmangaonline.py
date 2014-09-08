@@ -19,13 +19,13 @@ def obtenerCapitulos(manga = Manga, urlCapitulos = '', parametros = ParamDescarg
     pat = re.compile('<select class="cbo_wpm_chp" onchange="[^"]+">(.+?)</select>')
     http = httplib2.Http()
     headers, body = http.request(urlCapitulos)
-    li = pat.findall(body)
+    li = pat.findall("%s"%body)
     listCapsRet = []
     lst=[]
     strOption = str(li[0])
     strOption = strOption.replace('selected="selected"', '')
     pat2 = re.compile('<option value="(.+?)" >(.+?)</option>')
-    lstCaps = pat2.findall(strOption)
+    lstCaps = pat2.findall("%s"%strOption)
     total = len(lstCaps)
     totPre = len(str(total))
     manga.length = total
@@ -55,13 +55,12 @@ def obtenerCapitulos(manga = Manga, urlCapitulos = '', parametros = ParamDescarg
 
 def obtenerURLCaps(manga = Manga):
     pat = re.compile(CONST_EXP_LST_CAPITULOS)    
-    urlCapitulo = None
     manga.url = 'http://%s/%s/'%(manga.site, manga.code)
     log.info("http.request[lstCapitulos] ==> %s"%manga.url)  
     http = httplib2.Http()
     headers, body = http.request(manga.url)
-    varContenidoHtml = body        
-    caps = pat.findall(varContenidoHtml)
-    if caps != None:
-        urlCapitulo = caps[0][0]
+    log.file(body)
+    caps = pat.findall("%s"%body)
+    log.file(caps)
+    urlCapitulo = caps[0][0]
     return urlCapitulo

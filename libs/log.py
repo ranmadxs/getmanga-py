@@ -34,6 +34,9 @@ def debug(msg):
     #fileLog.write('[DEBUG]\t' + text + "\n")
     #fileLog.flush()
 
+def file(msg):
+    logging.info(msg)   
+
 #TODO: Deo eliminar este metodo y los comentarios
 def close():
     print "close"
