@@ -19,10 +19,22 @@ def descargarManga(codigoManga = None, parametros = ParamDescarga):
         MangaFile.crearDirectorio(capitulo, manga)
         capitulo = MangaGet.lstImagenes(manga, capitulo)
         for imagen in capitulo.imagenes:
-            imagen = MangaGet.obtenerImagen(manga, imagen)
-            imagen = MangaFile.descargarArchivo(imagen, capitulo)
-        if(manga.site == config.submanga): 
-            MangaFile.renombrarArchivos("%s/"%capitulo.folder, '')
+            retry = False
+            numberRetry = int(0)
+            while (numberRetry == 0 or retry):  
+                try:       
+                    if retry:
+                        log.error("Error al descargar imágen")
+                        log.info("Retry N° %i"%numberRetry) 
+                        retry = False                            
+                    imagen = MangaGet.obtenerImagen(manga, imagen)
+                    imagen = MangaFile.descargarArchivo(imagen, capitulo)
+                    if(manga.site == config.submanga): 
+                        MangaFile.renombrarArchivos("%s/"%capitulo.folder, '')
+                except AttributeError:    
+                    retry = True
+                finally:
+                    numberRetry = numberRetry + 1                    
     return manga
 
 def evaluarParamExtra(paramExtra=None):

@@ -36,7 +36,9 @@ def debug(msg):
 
 def file(msg):
     logging.info(msg)   
-
+    #print msg
+    #logging.debug(" ## Guardado en Archivo disabled para file ##")
+    
 #TODO: Deo eliminar este metodo y los comentarios
 def close():
     print "close"

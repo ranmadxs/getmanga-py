@@ -21,14 +21,26 @@ http = httplib2.Http()
     
 def lstCapitulos(manga = Manga, parametros = ParamDescarga):
     caps = []
-    urlCapitulo = None    
-    if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
-        urlCapitulo = Esmangaonline.obtenerURLCaps(manga)
-        caps, manga = Esmangaonline.obtenerCapitulos(manga, urlCapitulo, parametros)
-    if(manga.site == config.submanga):
-        urlCapitulo = Submanga.obtenerURLCaps(manga)
-        caps, manga = Submanga.obtenerCapitulos(manga, urlCapitulo, parametros)     
-    manga.capitulos = caps    
+    urlCapitulo = None 
+    retry = False
+    numberRetry = int(0)
+    while (numberRetry == 0 or retry):  
+        try: 
+            if retry:
+                log.error("Error al obtener capítulos")
+                log.info("Retry N° %i"%numberRetry) 
+                retry = False                        
+            if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
+                urlCapitulo = Esmangaonline.obtenerURLCaps(manga)
+                caps, manga = Esmangaonline.obtenerCapitulos(manga, urlCapitulo, parametros)
+            if(manga.site == config.submanga):
+                urlCapitulo = Submanga.obtenerURLCaps(manga)
+                caps, manga = Submanga.obtenerCapitulos(manga, urlCapitulo, parametros)
+        except IndexError:                
+            retry = True
+        finally:
+            numberRetry = numberRetry + 1
+    manga.capitulos = caps        
     return manga
 
 def lstImagenes(manga = Manga, capitulo = Capitulo):
