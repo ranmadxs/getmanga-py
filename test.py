@@ -82,5 +82,5 @@ def descargaMagnaTest():
 '''
 parserTest()
 #descargaCaratulasTest()
-
+#descargaMagnaTest()
 exit(0)
