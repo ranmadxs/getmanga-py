@@ -67,18 +67,22 @@ def lstImagenes(manga = Manga, capitulo = Capitulo):
         imagen = Imagen(codeImg, '%s%s%s'%(capitulo.url, separadorFin, codeImg))
         lstImagenes.append(imagen)
     capitulo.imagenes = lstImagenes
+    capitulo.length = len(lstImagenes)
     return capitulo
 
 def obtenerImagen(manga = Manga, imagen = Imagen):
     if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
         pat = re.compile(CONST_EXP_OBT_IMAGEN)
     if(manga.site == config.submanga):
-        pat = re.compile('</script><a href="[^"]+"><img src="(.+?)"/></a><br/>')
+        pat = re.compile('<div><a href="[^"]+"><img src="(.+?)"/></a><br/></div>')
     log.info("http.request[obtenerImagen] ==> %s"%imagen.url)
     headers, body = http.request(imagen.url)
-    log.file(body)
+    log.file (body)
     arrayImagen = pat.findall("%s"%body)
-    log.file(arrayImagen)
+    if(manga.site == config.submanga and len(arrayImagen) == 0):
+        pat = re.compile('</script><a href="[^"]+"><img src="(.+?)"/></a><br/>')
+    arrayImagen = pat.findall("%s"%body)
+    log.file (arrayImagen)
     for img in arrayImagen: 
         if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
             imagen.urlReal = img[0]

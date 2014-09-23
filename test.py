@@ -9,15 +9,87 @@ import sys
 from config import mangas
 from libs import MangaGet, MangaFile
 from model.bean import Manga, Capitulo, Imagen
+from model import chapter
 from Main import descargarManga
 from libs import log
 import httplib
 import httplib2, re
+from re import sub
 from libs import funciones
 from model.TYPE import ParamDescarga
 from model import TYPE
 from svc import Cover
+import HTMLParser
+
+
 print 'Inicio Test'
+'''
+pat = re.compile('<ul class="chapterlistfull">(.+?)</ul>')
+http = httplib2.Http()
+headers, body = http.request("http://manga.animea.net/zetman.html#.VCBcf493_ac")
+li = pat.findall(body)
+print li
+exit(0)
+'''
+
+class MyHTMLParser(HTMLParser.HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.VOLUMEN = []
+        self.VALIDTAG = False   
+        self.VALID_VOLUMEN = False
+        self.VALID_CAPITULO = False
+        self.INIT = False 
+    def handle_starttag(self, tag, attrs):
+        if tag == 'ul' and len(attrs) > 0 and attrs[0][0] == 'class' and attrs[0][1] == 'chapterlistfull':
+            #print '************************* Inicio listado de caps *******************************'
+            self.INIT = True
+        if not self.INIT:
+            self.VALIDTAG = False
+            return
+        #print "<%s>%s"% (tag, attrs)
+        if tag == 'li' and len(attrs) > 0 and attrs[0][0] == 'class' and attrs[0][1] == 'volume':
+            self.VALID_VOLUMEN = True 
+            
+        if tag == 'a' and len(attrs) > 1 and attrs[0][0] == 'href' and attrs[1][0] == 'id':
+            self.VALID_CAPITULO = True         
+        
+        self.VALIDTAG = True        
+    def handle_endtag(self, tag):
+        if tag == 'li':
+            self.VALID_VOLUMEN = False
+        if tag == 'a':
+            self.VALID_CAPITULO = False
+        if not self.INIT:
+            return
+        #print "</%s>"%tag
+        if tag == 'ul':
+            self.INIT = False    
+            #print '************************* Fin listado de caps *******************************'        
+    def handle_data(self, data):
+        if(not self.VALIDTAG):
+            return
+        if(self.VALID_VOLUMEN):
+            volumen = chapter.Volumen(data, [])
+            self.VOLUMEN.append(volumen)
+        if self.VALID_CAPITULO :
+            capitulo = chapter.Capitulo(data)
+            volumen = self.VOLUMEN.pop()
+            volumen.capitulos.append(capitulo)
+            self.VOLUMEN.append(volumen)
+        #print "%s"%data
+        
+parser = MyHTMLParser()
+http = httplib2.Http()
+#headers, body = http.request("http://manga.animea.net/alpine-rose.html#.VBmELY93_ac")
+headers, body = http.request("http://manga.animea.net/slam-dunk.html#.VCCIy493_ac")
+parser.feed("%s"%body)
+print len(parser.VOLUMEN)
+for volumen in parser.VOLUMEN:
+    print volumen
+parser.close()
+exit(0)
+
 
 #manga = mangas['is']
 #Cover.obtenerCaratulas(manga)
@@ -25,15 +97,39 @@ print 'Inicio Test'
 #MangaFile.renombrarArchivos('/media/Shampoo/Manga/uzumaki/01 Uzumaki C001-006/C05/', '')
 
 #print mangas["shingeki_no_kyojin"]
-#paramDescarga = ParamDescarga(138, TYPE.UNIQUE)
-#descargarManga('claymore2', paramDescarga)
+#paramDescarga = ParamDescarga('Extra_vol-9', TYPE.UNIQUE)
+#descargarManga('dorohedoro2', paramDescarga)
 #sys.exit(0)
 
-manga = mangas['dorohedoro']
-paramDescarga = ParamDescarga(None, None)
-#paramDescarga = ParamDescarga(138, TYPE.UNIQUE)
-manga = MangaGet.lstCapitulos(manga, paramDescarga)
-log.info(manga)
+'''
+Lista de Capitulos
+'''
+#manga = mangas['zetman2']
+#paramDescarga = ParamDescarga(None, None)
+#paramDescarga = ParamDescarga('Extra_vol-13', TYPE.UNIQUE)
+#manga = MangaGet.lstCapitulos(manga, paramDescarga)
+#log.info(manga)
+
+'''
+Lista de Imagenes
+'''
+#manga = mangas['zetman2']
+#capitulo = Capitulo()
+#capitulo.code = "14"
+#capitulo.url = "http://submanga.com/c/35471"
+#capitulo.title = "Zetman 14"
+#capitulo.length = 0
+#capitulo.folder = "/media/Shampoo/Manga/zetman/download/C014"
+#MangaGet.lstImagenes(manga, capitulo)
+#log.info(capitulo)
+
+#manga = mangas['dorohedoro2']
+#imagen = Imagen("1", "http://submanga.com/c/211690")
+#imagen = MangaGet.obtenerImagen(manga, imagen)
+#print imagen
+
+
+
 
 #pat = re.compile('<select class="cbo_wpm_chp" onchange="[^"]+">(.+?)</select>')
 '''
@@ -68,14 +164,7 @@ print body
 li3 = pat3.findall(body)
 print li3
 '''
-'''
-pat = re.compile('<div><a href="[^"]+"><img src="(.+?)"/>')
-http = httplib2.Http()
-headers, body = http.request("http://submanga.com/c/191518/5")
-li = pat.findall(body)
-print li
 
-'''
 '''
 def tryint(x):
     try:

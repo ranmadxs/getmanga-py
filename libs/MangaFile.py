@@ -11,6 +11,17 @@ import config
 from libs import funciones
 from model.bean import Capitulo, Manga, Imagen
 
+def totalArchivosCarpeta(capitulo = Capitulo):
+    files = []
+    total = 0
+    try:
+        files = os.listdir(capitulo.folder)
+    except OSError:
+        log.error("No existe la carpeta %s"%capitulo.folder)
+    finally:
+        total = len(files)
+    return total
+
 def renombrarArchivos(mypath='.', prefijo=None, sufijo = '', overflow=7):
     log.debug("Renombrar Archivos")
     listFiles = [ f for f in os.listdir(mypath) if os.path.isfile(os.path.join(mypath,f)) ]

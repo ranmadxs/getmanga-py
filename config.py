@@ -14,7 +14,12 @@ eshentaionline = "eshentaionline.com"
 submanga = "submanga.com"
 mangaCovers="http://manga.joentjuh.nl/series/%s/"
 mangas = {
+    "zetman2"           : Manga("zetman", submanga),
+    "zetman"            : Manga("zetman", esmangaonline, (mangaCovers%"42")),
+    "liar_game"         : Manga("liar_game", submanga, (mangaCovers%"3296")),
+    "wolf_guy"          : Manga("wolf_guy", submanga, (mangaCovers%"40128")),
     "dorohedoro"        : Manga("dorohedoro", esmangaonline, (mangaCovers%"209")),
+    "dorohedoro2"       : Manga("dorohedoro", submanga, (mangaCovers%"209")),
     "Doubt"             : Manga("Doubt", submanga),
     "shingeki_no_kyojin": Manga("shingeki_no_kyojin", esmangaonline, (mangaCovers%"47446")),
     "noblesse"          : Manga("noblesse", esmangaonline),
