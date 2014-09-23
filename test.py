@@ -82,5 +82,5 @@ def descargaMagnaTest():
 '''
 expresionesRegularesTest()
 #descargaCaratulasTest()
-
+#descargaMagnaTest()
 exit(0)
