@@ -12,11 +12,13 @@ CONST_FILE_LOG = 'logs.csv'
 esmangaonline = "esmangaonline.com"
 eshentaionline = "eshentaionline.com"
 submanga = "submanga.com"
+esmangahere = "es.mangahere.co"
 mangaCovers="http://manga.joentjuh.nl/series/%s/"
 mangas = {
     "zetman2"           : Manga("zetman", submanga),
     "zetman"            : Manga("zetman", esmangaonline, (mangaCovers%"42")),
     "liar_game"         : Manga("liar_game", submanga, (mangaCovers%"3296")),
+    "liar_game2"        : Manga("liar_game", esmangahere, (mangaCovers%"3296")),
     "wolf_guy"          : Manga("wolf_guy", submanga, (mangaCovers%"40128")),
     "dorohedoro"        : Manga("dorohedoro", esmangaonline, (mangaCovers%"209")),
     "dorohedoro2"       : Manga("dorohedoro", submanga, (mangaCovers%"209")),

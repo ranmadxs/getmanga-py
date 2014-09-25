@@ -7,15 +7,16 @@ Created on 17-03-2014
 '''
 import httplib2, re
 import config
-from svc import Esmangaonline, Submanga
+from svc import Esmangaonline, Submanga, Esmangahere
 from libs import log, funciones
 from model.bean import Capitulo, Manga, Imagen
 from model.TYPE import ParamDescarga
 from model import TYPE
 
-CONST_EXP_LST_IMAGENES = '<select class="cbo_wpm_pag" onchange="[^"]+">(.+?)</select>'
-CONST_EXP_LST_IMG_OPTION='<option value="[^"]+" >(.+?)</option>'
+
+
 CONST_EXP_OBT_IMAGEN='<img id="img_mng_enl" src="(.+?)" alt="(.+?)"/>'
+CONST_ESMANGAHERE_IMG = '<img src="(.+?)" width="(.+?)" id="image" alt="(.+?)" />'
 
 http = httplib2.Http()
     
@@ -36,6 +37,9 @@ def lstCapitulos(manga = Manga, parametros = ParamDescarga):
             if(manga.site == config.submanga):
                 urlCapitulo = Submanga.obtenerURLCaps(manga)
                 caps, manga = Submanga.obtenerCapitulos(manga, urlCapitulo, parametros)
+            if manga.site == config.esmangahere:
+                urlCapitulo = Esmangahere.obtenerURLCaps(manga)
+                caps, manga = Esmangahere.obtenerCapitulos(manga, urlCapitulo, parametros)
         except IndexError:                
             retry = True
         finally:
@@ -46,26 +50,13 @@ def lstCapitulos(manga = Manga, parametros = ParamDescarga):
 def lstImagenes(manga = Manga, capitulo = Capitulo):
     lstImagenes = []
     log.info("http.request[lstImagenes] ==> %s"%capitulo.url)
-    separadorFin = ""    
-    numberImgs = []
     if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
-        pat = re.compile(CONST_EXP_LST_IMAGENES)
-        headers, body = http.request(capitulo.url)        
-        optionsImgs = pat.findall("%s"%body)
-        if(len(optionsImgs) > 0):
-            strOptions = str(optionsImgs[0])
-            strOptions = strOptions.replace('selected="selected"', '')
-            pat = re.compile(CONST_EXP_LST_IMG_OPTION)
-            numberImgs = pat.findall("%s"%strOptions)
+        lstImagenes = Esmangaonline.obtenerImagenes(capitulo)
     if(manga.site == config.submanga):        
-        pat = re.compile('<option value="[^"]+">(.+?)</option>')
-        headers, body = http.request(capitulo.url) 
-        body = body.replace(' selected', '')
-        numberImgs = pat.findall("%s"%body)
-        separadorFin = "/"    
-    for codeImg in numberImgs:
-        imagen = Imagen(codeImg, '%s%s%s'%(capitulo.url, separadorFin, codeImg))
-        lstImagenes.append(imagen)
+        lstImagenes = Submanga.obtenerImagenes(capitulo) 
+    if manga.site == config.esmangahere:
+        lstImagenes = Esmangahere.obtenerImagenes(capitulo, manga)
+
     capitulo.imagenes = lstImagenes
     capitulo.length = len(lstImagenes)
     return capitulo
@@ -73,6 +64,8 @@ def lstImagenes(manga = Manga, capitulo = Capitulo):
 def obtenerImagen(manga = Manga, imagen = Imagen):
     if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
         pat = re.compile(CONST_EXP_OBT_IMAGEN)
+    if(manga.site == config.esmangahere):
+        pat = re.compile(CONST_ESMANGAHERE_IMG)        
     if(manga.site == config.submanga):
         pat = re.compile('<div><a href="[^"]+"><img src="(.+?)"/></a><br/></div>')
     log.info("http.request[obtenerImagen] ==> %s"%imagen.url)
@@ -87,8 +80,10 @@ def obtenerImagen(manga = Manga, imagen = Imagen):
         if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
             imagen.urlReal = img[0]
             imagen.title = img[1]
-        else:
+        if(manga.site == config.submanga):
             imagen.urlReal = img
+        if(manga.site == config.esmangahere):
+            imagen.urlReal = img[0]
     return imagen
 
 def obtenerCodByURL(url, prefijoURL):

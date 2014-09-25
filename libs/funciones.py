@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import httplib
+import httplib, re
 import HTMLParser
 from model import chapter
+
+def splittedname(s):
+    return tuple(tryint(x) for x in re.split('([0-9]+)', s[0]))
 
 class bcolors:
     HEADER = '\033[95m'
