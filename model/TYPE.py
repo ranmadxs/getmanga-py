@@ -11,6 +11,7 @@ CAPITULOS = '-C'
 HELP = '--help'
 H = '-h'
 L = '-L'
+V = '-V'
 
 class ParamDescarga(AbstractUtilDTO):
     tipo=None
