@@ -10,6 +10,19 @@ from libs import log, funciones
 from model import TYPE
 #"http://submanga.com/claymore/completa"
 
+def obtenerImagenes(capitulo = Capitulo):
+    http = httplib2.Http()
+    separadorFin = "/"
+    lstImagenes = []
+    pat = re.compile('<option value="[^"]+">(.+?)</option>')
+    headers, body = http.request(capitulo.url) 
+    body = body.replace(' selected', '')
+    numberImgs = pat.findall("%s"%body)
+    for codeImg in numberImgs:
+        imagen = Imagen(codeImg, '%s%s%s'%(capitulo.url, separadorFin, codeImg))
+        lstImagenes.append(imagen)
+    return lstImagenes
+
 def splittedname(s):
     return tuple(funciones.tryint(x) for x in re.split('([0-9]+)', s[0][0]))
 

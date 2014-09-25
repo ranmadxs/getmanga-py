@@ -10,9 +10,24 @@ from model.TYPE import ParamDescarga
 from model import TYPE
 
 CONST_EXP_LST_CAPITULOS = '<a class="lst" href="(.+?)" title="(.+?)">'
+CONST_EXP_LST_IMAGENES = '<select class="cbo_wpm_pag" onchange="[^"]+">(.+?)</select>'
+CONST_EXP_LST_IMG_OPTION='<option value="[^"]+" >(.+?)</option>'
 
-def splittedname(s):
-    return tuple(funciones.tryint(x) for x in re.split('([0-9]+)', s[0]))
+def obtenerImagenes(capitulo = Capitulo):
+    http = httplib2.Http()
+    lstImagenes = []
+    separadorFin = "" 
+    pat = re.compile(CONST_EXP_LST_IMAGENES)
+    headers, body = http.request(capitulo.url)        
+    optionsImgs = pat.findall("%s"%body)
+    strOptions = str(optionsImgs[0])
+    strOptions = strOptions.replace('selected="selected"', '')
+    pat = re.compile(CONST_EXP_LST_IMG_OPTION)
+    numberImgs = pat.findall("%s"%strOptions)
+    for codeImg in numberImgs:
+        imagen = Imagen(codeImg, '%s%s%s'%(capitulo.url, separadorFin, codeImg))
+        lstImagenes.append(imagen)
+    return lstImagenes
 
 def obtenerCapitulos(manga = Manga, urlCapitulos = '', parametros = ParamDescarga):
     codCapituloIni = parametros.codCapitulo
@@ -32,7 +47,7 @@ def obtenerCapitulos(manga = Manga, urlCapitulos = '', parametros = ParamDescarg
 #    print lstCaps
 #    exit(0)
     if(total > 1):        
-        lstCaps = sorted(lstCaps, key=splittedname)
+        lstCaps = sorted(lstCaps, key=funciones.splittedname)
     if(codCapituloIni is not None):
         for cap in lstCaps:
             codCap = funciones.prefijo(cap[0], totPre)
