@@ -55,8 +55,8 @@ def descargarArchivo(imagen = Imagen, capitulo = Capitulo):
     filename = imagen.urlReal.split("/")[-1]
     filePath = '%s/%s' %(capitulo.folder, filename)
     if(not os.path.isfile(filePath)):
-        os.system('wget %s -P %s' % (imagen.urlReal, capitulo.folder))
-        log.info('wget %s -P %s'%( imagen.urlReal, capitulo.folder))
+        log.info('curl %s -o %s/%s'%( imagen.urlReal, capitulo.folder, filename))
+        os.system('curl %s -o %s/%s' % (imagen.urlReal, capitulo.folder, filename))        
     else:
         log.error('El archivo [%s] ya existe'% filename)
     imagen.path = filePath
