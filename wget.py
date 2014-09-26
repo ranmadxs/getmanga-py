@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 import sys
 from config import mangas
-from Main import descargarManga
+import Main
 from libs import log 
 from model.TYPE import ParamDescarga 
 from model import TYPE
-from svc import Cover
+from svc import Cover, VolumenScan
 from libs.funciones import bcolors
 #sys.exit(0)
 args = sys.argv
@@ -42,21 +42,23 @@ if(len(args) >= 4):
     paramExtra = args[3]
 log.debug(paramExtra)
 
+manga = mangas[codManga]
+
 if (codCapitulo == TYPE.CAPITULOS):
-    manga = mangas[codManga]
     Cover.obtenerCaratulas(manga)
     log.debug(">>>> FIN wget.py (ObtenerCover) <<<<")
     sys.exit(0)
 
-if codCapitulo == TYPE.V:
+if codCapitulo == TYPE.V:    
     log.info("Inicio organizando los capítulos en volúmenes")
     log.debug(">>>> FIN wget.py (OrganizarVolumenes) <<<<")
+    Main.organizarVolumenes(manga)
     sys.exit(0)
     
     
 paramDescarga = ParamDescarga(codCapitulo, paramExtra)
 log.debug(paramDescarga)
-descargarManga(codManga, paramDescarga)
+Main.descargarManga(codManga, paramDescarga)
 log.debug("FIN manga "+codManga)
 #log.debug("FIN manga "+codManga+" :: Total Archivos Descargados= "+str(count))
 log.close()

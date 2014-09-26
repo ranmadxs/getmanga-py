@@ -9,17 +9,22 @@ Created on 17-03-2014
 from model.bean import Manga
 CONST_PATH='/media/Shampoo/Manga/'
 CONST_FILE_LOG = 'logs.csv'
+
+volumenurl = "manga.animea.net"
+
 esmangaonline = "esmangaonline.com"
 eshentaionline = "eshentaionline.com"
 submanga = "submanga.com"
 esmangahere = "es.mangahere.co"
 mangaCovers="http://manga.joentjuh.nl/series/%s/"
 mangas = {
-    "zetman2"           : Manga("zetman", submanga),
-    "zetman"            : Manga("zetman", esmangaonline, (mangaCovers%"42")),
+    "btooom"            : Manga("btooom", esmangahere), 
+    "zetman2"           : Manga("zetman", submanga, (mangaCovers%"42"), "zetman.html"),
+    "zetman"            : Manga("zetman", esmangaonline, (mangaCovers%"42"), "zetman.html"),
     "liar_game"         : Manga("liar_game", submanga, (mangaCovers%"3296")),
     "liar_game2"        : Manga("liar_game", esmangahere, (mangaCovers%"3296")),
-    "wolf_guy"          : Manga("wolf_guy", submanga, (mangaCovers%"40128")),
+    "wolf_guy"          : Manga("wolf_guy", submanga, (mangaCovers%"40128"), "wolf-guy-ookami-no-monshou.html"),
+    "wolf_guy2"         : Manga("wolf_guy", esmangahere, (mangaCovers%"40128"), "wolf-guy-ookami-no-monshou.html"),
     "dorohedoro"        : Manga("dorohedoro", esmangaonline, (mangaCovers%"209")),
     "dorohedoro2"       : Manga("dorohedoro", submanga, (mangaCovers%"209")),
     "Doubt"             : Manga("Doubt", submanga),

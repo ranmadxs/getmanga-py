@@ -5,12 +5,12 @@ Created on 17-03-2014
 
 @author: esanchez
 '''
+import Main
 import sys
 from config import mangas
 from libs import MangaGet, MangaFile
 from model.bean import Manga, Capitulo, Imagen
 from model import chapter
-from Main import descargarManga
 from libs import log
 import httplib
 import httplib2, re
@@ -18,7 +18,7 @@ from re import sub
 from libs import funciones
 from model.TYPE import ParamDescarga
 from model import TYPE
-from svc import Cover, Esmangahere
+from svc import Cover, Esmangahere, VolumenScan
 import HTMLParser
 
 ########### BASIC DATA TEST ####################3
@@ -57,15 +57,11 @@ def imagenLiar_game2():
 print 'Test wget'
 
 #Test: Parsea el html y genera objeto volumen como areglo
-def parserTest():    
-    parser = funciones.VolumenHTMLParser()
-    http = httplib2.Http()
-    headers, body = http.request("http://manga.animea.net/zetman.html#.VCGOu493_ac")
-    #headers, body = http.request("http://manga.animea.net/slam-dunk.html#.VCCIy493_ac")
-    parser.feed("%s"%body)
-    for volumen in parser.VOLUMEN:
+def parserTest():
+    manga = mangas['wolf_guy']   
+    volumenes = VolumenScan.listaVolumenes(manga)
+    for volumen in volumenes:
         print volumen
-    parser.close()
     
 def descargaCaratulasTest():    
     manga = mangas['is']
@@ -103,7 +99,7 @@ def expresionesRegularesTest():
 
 def descargaMagnaTest():
     paramDescarga = ParamDescarga('13', TYPE.UNIQUE)
-    descargarManga('liar_game2', paramDescarga)
+    Main.descargarManga('liar_game2', paramDescarga)
 
 
 def obtenerImagenTest():
@@ -114,12 +110,18 @@ def obtenerImagenTest():
     imagen = MangaGet.obtenerImagen(manga, imagen)
     print imagen
 
+def organizarVolumenesTest():
+    manga = mangas['wolf_guy']
+    Main.organizarVolumenes(manga)
 '''
  ########## Inicio Ejec Test #########
 '''
+    
+#parserTest()
+organizarVolumenesTest()
 #listaCapitulosTest()
 #listaImagenesTest()
-obtenerImagenTest()
+#obtenerImagenTest()
 #descargaCaratulasTest()
 #descargaMagnaTest()
 exit(0)

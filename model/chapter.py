@@ -14,5 +14,7 @@ class Volumen(AbstractUtilDTO):
         
 class Capitulo(AbstractUtilDTO):
     name = ""
-    def __init__(self, name=None):
+    folder = ""
+    def __init__(self, name=None, folder=None):
         self.name = name
+        self.folder = folder

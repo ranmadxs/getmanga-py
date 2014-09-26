@@ -7,9 +7,11 @@ class Manga(AbstractUtilDTO):
     length = 0
     capitulos = []
     cover = ""
-    def __init__(self, code=None, site=None, cover=None, length=0, url=None, capitulos = []):
+    urlVolumen = None
+    def __init__(self, code=None, site=None, cover=None, urlVolumen=None, length=0, url=None, capitulos = []):
         self.code = code
         self.site = site
+        self.urlVolumen = urlVolumen
         self.length=length
         self.url = url
         self.capitulos = capitulos

@@ -5,11 +5,16 @@ Created on 18-03-2014
 
 @author: esanchez
 '''
-import os
+import os, shutil
 from libs import log
 import config
 from libs import funciones
 from model.bean import Capitulo, Manga, Imagen
+
+def listarArchivosCarpeta(manga = Manga ):
+    dirName = "%s%s/download/"%(config.CONST_PATH, manga.code)
+    files = os.listdir(dirName)
+    return files
 
 def totalArchivosCarpeta(capitulo = Capitulo):
     files = []
@@ -42,14 +47,21 @@ def crearDirectorio(capitulo = Capitulo, manga = Manga):
     dirName = funciones.decode(dirName)
     capitulo.folder = dirName
     #if capitulo.length > 0:
+    makeDir(dirName)
+    #else:
+    #    log.error("El capítulo [%s] no tiene imágenes"%capitulo.code)
+    return capitulo
+
+def move(orig=None, dest=None):
+    log.debug("[mv] %s -> %s "%(orig, dest))
+    #shutil.move(orig, dest)
+
+def makeDir(dirName = None):
     if not os.path.exists(dirName):
         os.makedirs(dirName)
         log.info("mkdir %s"%dirName)
     else:
         log.error("La carpeta [%s] ya exíste"%dirName)
-    #else:
-    #    log.error("El capítulo [%s] no tiene imágenes"%capitulo.code)
-    return capitulo
 
 def descargarArchivo(imagen = Imagen, capitulo = Capitulo):
     filename = imagen.urlReal.split("/")[-1]
