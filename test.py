@@ -111,7 +111,7 @@ def obtenerImagenTest():
     print imagen
 
 def organizarVolumenesTest():
-    manga = mangas['wolf_guy']
+    manga = mangas['slam-dunk']
     Main.organizarVolumenes(manga)
 '''
  ########## Inicio Ejec Test #########

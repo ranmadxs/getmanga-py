@@ -42,7 +42,7 @@ mangas = {
     "berserk"           : Manga("berserk", esmangaonline, (mangaCovers%"88")),
     "berserk2"          : Manga("berserk", submanga),
     "gasuki"            : Manga("Me+gustas+Onii-chan!", eshentaionline),
-    "slam-dunk"         : Manga("slam-dunk", esmangaonline, (mangaCovers%"90")),
+    "slam-dunk"         : Manga("slam-dunk", esmangaonline, (mangaCovers%"90"), "slam-dunk.html"),
     "alive"             : Manga("alive", esmangaonline),
     "uzumaki"           : Manga("uzumaki", esmangaonline),
     "uzumaki2"          : Manga("uzumaki", submanga),

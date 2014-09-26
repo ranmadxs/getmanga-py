@@ -54,7 +54,7 @@ def crearDirectorio(capitulo = Capitulo, manga = Manga):
 
 def move(orig=None, dest=None):
     log.debug("[mv] %s -> %s "%(orig, dest))
-    #shutil.move(orig, dest)
+    shutil.move(orig, dest)
 
 def makeDir(dirName = None):
     if not os.path.exists(dirName):

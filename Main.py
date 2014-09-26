@@ -38,7 +38,7 @@ def organizarVolumenes(manga = Manga):
                 volumensDir = "%s%s/volumenes/%s"%(config.CONST_PATH, manga.code, volumenName)
                 volumensDir = volumensDir.replace(' ', '')
                 log.debug("[mkdir] =>%s"%volumensDir)
-                #MangaFile.makeDir(volumensDir)
+                MangaFile.makeDir(volumensDir)
                 for folder in lstFolderInVol:
                     folderName = folder.split("/")[-1]
                     destFolder = "%s/%s"%(volumensDir, folderName)
