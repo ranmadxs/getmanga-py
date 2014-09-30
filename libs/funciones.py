@@ -88,7 +88,7 @@ class VolumenHTMLParser(HTMLParser.HTMLParser):
         if(self.VALID_VOLUMEN):
             volumen = chapter.Volumen(data, [])
             self.VOLUMEN.append(volumen)
-        if self.VALID_CAPITULO :
+        if self.VALID_CAPITULO and self.VOLUMEN.__len__() > 0:
             capitulo = chapter.Capitulo(data)
             volumen = self.VOLUMEN.pop()
             volumen.capitulos.append(capitulo)

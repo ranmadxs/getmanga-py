@@ -15,8 +15,6 @@ from svc import VolumenScan
 
 def organizarVolumenes(manga = Manga):
     lstFolder = MangaFile.listarArchivosCarpeta(manga)           
-    for folder in lstFolder:
-        print folder    
     if(len(lstFolder) > 0):
         totPre = len(lstFolder[0]) - 1
         lstVol = VolumenScan.listaVolumenes(manga)        

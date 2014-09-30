@@ -50,9 +50,9 @@ if (codCapitulo == TYPE.CAPITULOS):
     sys.exit(0)
 
 if codCapitulo == TYPE.V:    
-    log.info("Inicio organizando los capítulos en volúmenes")
-    log.debug(">>>> FIN wget.py (OrganizarVolumenes) <<<<")
+    log.info("Inicio organizando los capítulos en volúmenes")    
     Main.organizarVolumenes(manga)
+    log.debug(">>>> FIN wget.py (OrganizarVolumenes) <<<<")
     sys.exit(0)
     
     
