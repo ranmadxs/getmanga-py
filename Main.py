@@ -45,8 +45,16 @@ def organizarVolumenes(manga = Manga):
 def descargarManga(codigoManga = None, parametros = ParamDescarga):
     log.debug(codigoManga)
     manga = config.mangas[codigoManga]
-    MangaGet.lstCapitulos(manga, parametros)    
-    for capitulo in manga.capitulos:        
+    lstExclusions = exclusionFiles(manga)   
+    log.info(" exclusions.txt == %s" % lstExclusions) 
+    MangaGet.lstCapitulos(manga, parametros)
+    listCapitulos = []
+    #TODO: Debo seguir trabajando en el tema de las exclusiones que no esta bien
+    for capitulo in manga.capitulos:
+        if not (capitulo.code in lstExclusions):
+            listCapitulos.append(capitulo)
+            
+    for capitulo in listCapitulos:        
         MangaFile.crearDirectorio(capitulo, manga)
         capitulo = MangaGet.lstImagenes(manga, capitulo)
         totalImgCarpeta = MangaFile.totalArchivosCarpeta(capitulo)
@@ -71,6 +79,11 @@ def descargarManga(codigoManga = None, parametros = ParamDescarga):
         else:
             log.error("Todos los archivos del capitulo %s ya han sido descargados"%capitulo.title)                              
     return manga
+
+def exclusionFiles(manga = Manga):
+    fileExcl = "%s%s/%s"%(config.CONST_PATH, manga.code, config.CONST_EXCLUSIONS_FILE)
+    lstExcl = MangaFile.readFile(fileExcl)
+    return lstExcl
 
 def evaluarParamExtra(paramExtra=None):
     cobUnica = bool(0)
