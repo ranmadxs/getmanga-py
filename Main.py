@@ -5,7 +5,7 @@ Created on 18-03-2014
 
 @author: esanchez
 '''
-import config
+import config, os
 from libs import log, funciones
 from libs import MangaGet, MangaFile
 from model import TYPE
@@ -19,15 +19,17 @@ def infoManga(manga = Manga):
     fileInfo = "%s%s/%s"%(config.CONST_PATH, manga.code, config.CONST_INFO_FILE)
 
     #open the file template
-    filein = open( 'tpl/info.tpl' )
+    filein = open( '%s/tpl/info.tpl'%config.CONST_PATH_SRC )
     info = VolumenScan.getURLScann(manga)
+    info = str(info).decode('utf-8')
     lstVol = VolumenScan.listaVolumenes(manga)
     listVol = []
     countVol = int(0)
     countCap = int(0)
     for vol in lstVol:                
         for cap in vol.capitulos:
-            listVol.append("  » %s"%cap.name)
+            capStr = str("  > %s"%cap.name).decode('utf-8')
+            listVol.append(capStr)
             countCap = countCap + 1
         listVol.append("------------------------------")
         listVol.append(vol.name)
@@ -35,13 +37,15 @@ def infoManga(manga = Manga):
         countVol = countVol + 1
     listVol = listVol[::-1]
     #read it
-    src = Template( filein.read() )
+    src = Template( str(filein.read()).decode('utf-8') )
     #document data
-    title = manga.code
-    d={ 'title':title, 'list':'\n'.join(listVol) , 'cover' : manga.cover, 'info' : info, 'countCap' : countCap, 'countVol' : countVol}
+    title = str(manga.code).decode('utf-8')
+    cover = str(manga.cover).decode('utf-8')
+    d={ 'title':title, 'list':'\n'.join(listVol) , 'cover' : cover, 'info' : info, 'countCap' : countCap, 'countVol' : countVol}
     #do the substitution
     result = src.substitute(d)
-    print result
+    result = result.encode('utf-8')
+    log.debug(result)
     file_ = open(fileInfo, 'w')
     file_.write(result)
     file_.close()

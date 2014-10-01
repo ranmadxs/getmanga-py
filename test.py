@@ -6,7 +6,7 @@ Created on 17-03-2014
 @author: esanchez
 '''
 import Main
-import sys
+import sys, os
 from config import mangas
 from libs import MangaGet, MangaFile
 from model.bean import Manga, Capitulo, Imagen
@@ -142,9 +142,10 @@ def infoMangaTest():
 '''
  ########## Inicio Ejec Test #########
 '''
-#infoMangaTest()   
+    
+infoMangaTest()   
 #parserTest()
-organizarVolumenesTest()
+#organizarVolumenesTest()
 #listaCapitulosTest()
 #listaImagenesTest()
 #obtenerImagenTest()

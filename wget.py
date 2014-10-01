@@ -16,10 +16,11 @@ if len(args) > 0 and (args[1] == TYPE.HELP or args[1] == TYPE.H):
     print("Uso:           getmanga <codigoManga> <numeroCapitulo> -<comando>\n")
     print("<comando>\n")
     print(" -h   -- help         Muestra la ayuda, no requiere código del manga ni número del capítulo")
+    print(" --info               Crea archivo info.txt dentro de la carpeta del manga basado en manga.animea.net")
     print(" -U                   Descarga un único capítulo")
     print(" -C                   Descarga las carátulas del manga")
     print(" -L                   Lista los mangas que se encuentran en config.py")
-    print(" -V                   Organiza los capítulos de la carpeta download en volúmenes, información extraída de manga.animea.net (Desarrollo)")
+    print(" -V                   Organiza los capítulos de la carpeta download en volúmenes, información extraída de manga.animea.net")    
     sys.exit(0)
 
 if len(args) > 0 and (args[1] == TYPE.L):
@@ -54,7 +55,10 @@ if codCapitulo == TYPE.V:
     Main.organizarVolumenes(manga)
     log.debug(">>>> FIN wget.py (OrganizarVolumenes) <<<<")
     sys.exit(0)
-    
+
+if codCapitulo == TYPE.INFO:    
+    Main.infoManga(manga)   
+    sys.exit(0) 
     
 paramDescarga = ParamDescarga(codCapitulo, paramExtra)
 log.debug(paramDescarga)

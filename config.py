@@ -7,6 +7,7 @@ Created on 17-03-2014
 #http://submanga.com/claymore/completa
 #http://esmangaonline.com/alive/
 from model.bean import Manga
+CONST_PATH_SRC = '/home/esanchez/lenguajes/python/wget'
 CONST_PATH='/media/Shampoo/Manga/'
 CONST_FILE_LOG = 'logs.csv'
 CONST_EXCLUSIONS_FILE = "exclusions.txt"

@@ -12,6 +12,7 @@ HELP = '--help'
 H = '-h'
 L = '-L'
 V = '-V'
+INFO = '--info'
 
 class ParamDescarga(AbstractUtilDTO):
     tipo=None
