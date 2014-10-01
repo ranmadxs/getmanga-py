@@ -11,10 +11,13 @@ from model.bean import Manga
 from libs import log, funciones
 import os
 
+def getURLScann(manga = Manga):
+    return "http://%s/%s"%(config.volumenurl, manga.urlVolumen)
+
 def listaVolumenes(manga = Manga):
     parser = funciones.VolumenHTMLParser()
     http = httplib2.Http()
-    urlVol = "http://%s/%s"%(config.volumenurl, manga.urlVolumen)
+    urlVol = getURLScann(manga)
     log.info("http.request[listaVolumenes] ==> %s"%urlVol)  
     headers, body = http.request(urlVol)
     parser.feed("%s"%body)

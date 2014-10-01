@@ -12,6 +12,39 @@ from model import TYPE
 from model.TYPE import ParamDescarga 
 from model.bean import Capitulo, Manga 
 from svc import VolumenScan
+from string import Template
+
+def infoManga(manga = Manga):
+    log.info("[Info Manga] %s"%manga.code)
+    fileInfo = "%s%s/%s"%(config.CONST_PATH, manga.code, config.CONST_INFO_FILE)
+
+    #open the file template
+    filein = open( 'tpl/info.tpl' )
+    info = VolumenScan.getURLScann(manga)
+    lstVol = VolumenScan.listaVolumenes(manga)
+    listVol = []
+    countVol = int(0)
+    countCap = int(0)
+    for vol in lstVol:                
+        for cap in vol.capitulos:
+            listVol.append("  » %s"%cap.name)
+            countCap = countCap + 1
+        listVol.append("------------------------------")
+        listVol.append(vol.name)
+        listVol.append("------------------------------")
+        countVol = countVol + 1
+    listVol = listVol[::-1]
+    #read it
+    src = Template( filein.read() )
+    #document data
+    title = manga.code
+    d={ 'title':title, 'list':'\n'.join(listVol) , 'cover' : manga.cover, 'info' : info, 'countCap' : countCap, 'countVol' : countVol}
+    #do the substitution
+    result = src.substitute(d)
+    print result
+    file_ = open(fileInfo, 'w')
+    file_.write(result)
+    file_.close()
 
 def organizarVolumenes(manga = Manga):
     lstFolder = MangaFile.listarArchivosCarpeta(manga)           

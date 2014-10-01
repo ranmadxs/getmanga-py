@@ -10,6 +10,7 @@ from model.bean import Manga
 CONST_PATH='/media/Shampoo/Manga/'
 CONST_FILE_LOG = 'logs.csv'
 CONST_EXCLUSIONS_FILE = "exclusions.txt"
+CONST_INFO_FILE = "info.txt"
 
 volumenurl = "manga.animea.net"
 

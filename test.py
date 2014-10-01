@@ -133,11 +133,16 @@ def scannVolumenTest():
     for volumen in lstVol:
         print volumen
 
+def infoMangaTest():
+    #manga = mangas['ant']
+    manga = mangas['i_am_a_hero']
+    Main.infoManga(manga)
+    
 '''
  ########## Inicio Ejec Test #########
 '''
 
-scannVolumenTest()   
+infoMangaTest()   
 #parserTest()
 #organizarVolumenesTest()
 #listaCapitulosTest()
