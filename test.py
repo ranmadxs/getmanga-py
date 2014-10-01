@@ -110,15 +110,36 @@ def obtenerImagenTest():
     imagen = MangaGet.obtenerImagen(manga, imagen)
     print imagen
 
+def excludeFilesTest():
+    manga = mangas['liar_game']
+    parametros = ParamDescarga(None, None)
+    lstExclusions = Main.exclusionFiles(manga)   
+    log.info(" exclusions.txt == %s" % lstExclusions) 
+    MangaGet.lstCapitulos(manga, parametros)
+    listCapitulos = []
+    #TODO: Debo seguir trabajando en el tema de las exclusiones que no esta bien
+    for capitulo in manga.capitulos:        
+        if not (capitulo.code in lstExclusions):
+            print capitulo.code
+            listCapitulos.append(capitulo)
+
 def organizarVolumenesTest():
     manga = mangas['slam-dunk']
     Main.organizarVolumenes(manga)
+
+def scannVolumenTest():
+    manga = mangas['i_am_a_hero']
+    lstVol = VolumenScan.listaVolumenes(manga)        
+    for volumen in lstVol:
+        print volumen
+
 '''
  ########## Inicio Ejec Test #########
 '''
-    
+
+scannVolumenTest()   
 #parserTest()
-organizarVolumenesTest()
+#organizarVolumenesTest()
 #listaCapitulosTest()
 #listaImagenesTest()
 #obtenerImagenTest()

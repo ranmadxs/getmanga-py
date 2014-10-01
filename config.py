@@ -9,6 +9,7 @@ Created on 17-03-2014
 from model.bean import Manga
 CONST_PATH='/media/Shampoo/Manga/'
 CONST_FILE_LOG = 'logs.csv'
+CONST_EXCLUSIONS_FILE = "exclusions.txt"
 
 volumenurl = "manga.animea.net"
 
@@ -18,9 +19,17 @@ submanga = "submanga.com"
 esmangahere = "es.mangahere.co"
 mangaCovers="http://manga.joentjuh.nl/series/%s/"
 mangas = {
+    "dragon_head"       : Manga("dragon_head", esmangahere, (mangaCovers%"384"), "dragon-head.html"),
+    "dragon_head2"      : Manga("dragon_head", esmangaonline, (mangaCovers%"384"), "dragon-head.html"),
+    "dragon_head3"      : Manga("dragon_head", submanga, (mangaCovers%"384"), "dragon-head.html"),
+    "ant"               : Manga("apocalypse_no_toride", esmangahere, (mangaCovers%"68982"), "apocalypse-no-toride.html"),
+    "ant2"              : Manga("apocalypse_no_toride", submanga, (mangaCovers%"68982"), "apocalypse-no-toride.html"),
     "btooom"            : Manga("btooom", esmangahere), 
     "zetman2"           : Manga("zetman", submanga, (mangaCovers%"42"), "zetman.html"),
     "zetman"            : Manga("zetman", esmangaonline, (mangaCovers%"42"), "zetman.html"),
+    "i_am_a_hero"       : Manga("i_am_a_hero", submanga, (mangaCovers%"43241"), "i-am-a-hero.html"),
+    "i_am_a_hero2"      : Manga("i_am_a_hero", esmangahere, (mangaCovers%"43241"), "i-am-a-hero.html"),
+    "i_am_a_hero3"      : Manga("i_am_a_hero", esmangaonline, (mangaCovers%"43241"), "i-am-a-hero.html"),
     "liar_game"         : Manga("liar_game", submanga, (mangaCovers%"3296"), "liar-game.html"),
     "liar_game2"        : Manga("liar_game", esmangahere, (mangaCovers%"3296", "liar-game.html")),
     "wolf_guy"          : Manga("wolf_guy", submanga, (mangaCovers%"40128"), "wolf-guy-ookami-no-monshou.html"),

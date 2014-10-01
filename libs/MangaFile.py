@@ -10,6 +10,7 @@ from libs import log
 import config
 from libs import funciones
 from model.bean import Capitulo, Manga, Imagen
+from warnings import catch_warnings
 
 def listarArchivosCarpeta(manga = Manga ):
     dirName = "%s%s/download/"%(config.CONST_PATH, manga.code)
@@ -62,6 +63,14 @@ def makeDir(dirName = None):
         log.info("mkdir %s"%dirName)
     else:
         log.error("La carpeta [%s] ya exíste"%dirName)
+
+def readFile(file):
+    lines = []
+    try:
+        lines = [line.strip() for line in open(file)]
+    except IOError:
+        None
+    return lines
 
 def descargarArchivo(imagen = Imagen, capitulo = Capitulo):
     filename = imagen.urlReal.split("/")[-1]
