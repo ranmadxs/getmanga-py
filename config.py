@@ -42,7 +42,7 @@ mangas = {
     "noblesse"          : Manga("noblesse", esmangaonline),
     "noblesse2"         : Manga("noblesse", submanga),
     "majutsu"           : Manga("to_aru_majutsu_no_index", esmangaonline),
-    "holy_knight"       : Manga("holy_knight", esmangaonline),
+    "holy_knight"       : Manga("holy_knight", esmangahere, None, "holy-knight.html"),
     "pandora"           : Manga("pandora-hearts", esmangaonline, (mangaCovers%"9709")),
     "claymore"          : Manga("claymore", esmangaonline),
     "claymore2"         : Manga("claymore", submanga),

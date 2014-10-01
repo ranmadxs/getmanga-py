@@ -20,6 +20,7 @@ def listaVolumenes(manga = Manga):
     urlVol = getURLScann(manga)
     log.info("http.request[listaVolumenes] ==> %s"%urlVol)  
     headers, body = http.request(urlVol)
+    body = str(body).decode('utf-8')
     parser.feed("%s"%body)
     parser.close()
     return parser.VOLUMEN

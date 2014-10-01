@@ -124,27 +124,27 @@ def excludeFilesTest():
             listCapitulos.append(capitulo)
 
 def organizarVolumenesTest():
-    manga = mangas['slam-dunk']
+    manga = mangas['holy_knight']
     Main.organizarVolumenes(manga)
 
 def scannVolumenTest():
-    manga = mangas['i_am_a_hero']
+    manga = mangas['holy_knight']
     lstVol = VolumenScan.listaVolumenes(manga)        
     for volumen in lstVol:
         print volumen
 
 def infoMangaTest():
+    manga = mangas['holy_knight']
     #manga = mangas['ant']
-    manga = mangas['i_am_a_hero']
+    #manga = mangas['i_am_a_hero']
     Main.infoManga(manga)
     
 '''
  ########## Inicio Ejec Test #########
 '''
-
-infoMangaTest()   
+#infoMangaTest()   
 #parserTest()
-#organizarVolumenesTest()
+organizarVolumenesTest()
 #listaCapitulosTest()
 #listaImagenesTest()
 #obtenerImagenTest()
