@@ -127,11 +127,17 @@ def organizarVolumenesTest():
     manga = mangas['slam-dunk']
     Main.organizarVolumenes(manga)
 
+def scannVolumenTest():
+    manga = mangas['i_am_a_hero']
+    lstVol = VolumenScan.listaVolumenes(manga)        
+    for volumen in lstVol:
+        print volumen
+
 '''
  ########## Inicio Ejec Test #########
 '''
 
-excludeFilesTest()   
+scannVolumenTest()   
 #parserTest()
 #organizarVolumenesTest()
 #listaCapitulosTest()
