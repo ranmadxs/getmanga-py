@@ -36,12 +36,13 @@ def infoManga(manga = Manga):
         listVol.append("------------------------------")
         countVol = countVol + 1
     listVol = listVol[::-1]
+    status, volinfo = VolumenScan.getMangaInfo(manga)
     #read it
     src = Template( str(filein.read()).decode('utf-8') )
     #document data
     title = str(manga.code).decode('utf-8')
     cover = str(manga.cover).decode('utf-8')
-    d={ 'title':title, 'list':'\n'.join(listVol) , 'cover' : cover, 'info' : info, 'countCap' : countCap, 'countVol' : countVol, 'status' : status}
+    d={ 'title':title, 'list':'\n'.join(listVol) , 'cover' : cover, 'info' : info, 'countCap' : countCap, 'countVol' : countVol, 'status' : status, 'volinfo': volinfo}
     #do the substitution
     result = src.substitute(d)
     result = result.encode('utf-8')

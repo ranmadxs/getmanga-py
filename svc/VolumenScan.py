@@ -15,6 +15,16 @@ import os
 def getURLScann(manga = Manga):
     return "http://%s/%s"%(config.volumenurl, manga.urlVolumen)
 
+def getMangaInfo(manga = Manga):
+    parser = InfoHTMLParser()
+    http = httplib2.Http()
+    log.info("http.request[infoManga] ==> %s"%manga.infoUrl)
+    headers, body = http.request(manga.infoUrl)
+    #body = str(body).decode('utf-8')
+    parser.feed("%s"%body)
+    parser.close()  
+    return parser.STATUS, parser.VOL_INFO  
+
 def listaVolumenes(manga = Manga):
     parser = VolumenHTMLParser()
     http = httplib2.Http()
@@ -25,6 +35,41 @@ def listaVolumenes(manga = Manga):
     parser.feed("%s"%body)
     parser.close()
     return parser.VOLUMEN, parser.STATUS
+
+class InfoHTMLParser(HTMLParser.HTMLParser):
+    
+    def __init__(self):
+        self.reset()
+        self.STATUS = None
+        self.FIND_STATUS = False
+        self.VOL_INFO = None
+        self.FIND_VOL_INFO = False
+        self.VALID_TAG = False
+        self.TAG = None
+    def handle_starttag(self, tag, attrs):
+        if tag == 'div':
+            self.VALID_TAG = True
+        self.TAG = tag
+            
+    def handle_endtag(self, tag):
+        self.VALID_TAG = False     
+           
+    def handle_data(self, data):
+        dataHtml = str(data).strip()
+        if self.FIND_STATUS == True and self.VALID_TAG == True:
+            self.FIND_STATUS = False
+            self.STATUS = dataHtml
+            return
+        if 'Completely Scanlated?' == dataHtml:
+            self.FIND_STATUS = True
+
+        if self.FIND_VOL_INFO == True and self.VALID_TAG == True:
+            self.FIND_VOL_INFO = False
+            self.VOL_INFO = dataHtml            
+            return
+        if 'Status in Country of Origin' == dataHtml:
+            self.FIND_VOL_INFO = True
+
 
 class VolumenHTMLParser(HTMLParser.HTMLParser):
     def __init__(self):
@@ -39,12 +84,10 @@ class VolumenHTMLParser(HTMLParser.HTMLParser):
         
     def handle_starttag(self, tag, attrs):
         if tag == 'ul' and len(attrs) > 0 and attrs[0][0] == 'class' and attrs[0][1] == 'chapterlistfull':
-            #print '************************* Inicio listado de caps *******************************'
             self.INIT = True
         if not self.INIT:
             self.VALIDTAG = False
             return
-        #print "<%s>%s"% (tag, attrs)
         if tag == 'li' and len(attrs) > 0 and attrs[0][0] == 'class' and attrs[0][1] == 'volume':
             self.VALID_VOLUMEN = True 
             
@@ -59,13 +102,10 @@ class VolumenHTMLParser(HTMLParser.HTMLParser):
             self.VALID_CAPITULO = False
         if not self.INIT:
             return
-        #print "</%s>"%tag
         if tag == 'ul':
             self.INIT = False    
-            #print '************************* Fin listado de caps *******************************'        
     def handle_data(self, data):
         if self.FIND_STATUS == True:
-            print data
             self.FIND_STATUS = False
             self.STATUS = data.strip()
             return

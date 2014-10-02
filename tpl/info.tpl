@@ -3,8 +3,7 @@
 ********************************************
 Cover : $cover
 Info  : $info
-Volúmenes = $countVol, Capítulos = $countCap
-Status: $status
+Status = $volinfo, Capítulos = $countCap
 ********************************************
 Lista de Volúmenes:
 $list

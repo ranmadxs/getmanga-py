@@ -22,11 +22,11 @@ submanga = "submanga.com"
 esmangahere = "es.mangahere.co"
 mangaCovers="http://manga.joentjuh.nl/series/%s/"
 mangas = {
-    "dragon_head"       : Manga("dragon_head", esmangahere, (mangaCovers%"384"), "dragon-head.html"),
-    "dragon_head2"      : Manga("dragon_head", esmangaonline, (mangaCovers%"384"), "dragon-head.html"),
-    "dragon_head3"      : Manga("dragon_head", submanga, (mangaCovers%"384"), "dragon-head.html"),
-    "ant"               : Manga("apocalypse_no_toride", esmangahere, (mangaCovers%"68982"), "apocalypse-no-toride.html"),
-    "ant2"              : Manga("apocalypse_no_toride", submanga, (mangaCovers%"68982"), "apocalypse-no-toride.html"),
+    "dragon_head"       : Manga("dragon_head", esmangahere, (mangaCovers%"384"), "dragon-head.html", (infourl%"384")),
+    "dragon_head2"      : Manga("dragon_head", esmangaonline, (mangaCovers%"384"), "dragon-head.html", (infourl%"384")),
+    "dragon_head3"      : Manga("dragon_head", submanga, (mangaCovers%"384"), "dragon-head.html", (infourl%"384")),
+    "ant"               : Manga("apocalypse_no_toride", esmangahere, (mangaCovers%"68982"), "apocalypse-no-toride.html", (infourl%"68982")),
+    "ant2"              : Manga("apocalypse_no_toride", submanga, (mangaCovers%"68982"), "apocalypse-no-toride.html", (infourl%"68982")),
     "btooom"            : Manga("btooom", esmangahere), 
     "zetman2"           : Manga("zetman", submanga, (mangaCovers%"42"), "zetman.html"),
     "zetman"            : Manga("zetman", esmangaonline, (mangaCovers%"42"), "zetman.html"),
@@ -35,8 +35,6 @@ mangas = {
     "i_am_a_hero3"      : Manga("i_am_a_hero", esmangaonline, (mangaCovers%"43241"), "i-am-a-hero.html"),
     "liar_game"         : Manga("liar_game", submanga, (mangaCovers%"3296"), "liar-game.html"),
     "liar_game2"        : Manga("liar_game", esmangahere, (mangaCovers%"3296", "liar-game.html")),
-    "wolf_guy"          : Manga("wolf_guy", submanga, (mangaCovers%"40128"), "wolf-guy-ookami-no-monshou.html"),
-    "wolf_guy2"         : Manga("wolf_guy", esmangahere, (mangaCovers%"40128"), "wolf-guy-ookami-no-monshou.html"),
     "dorohedoro"        : Manga("dorohedoro", esmangaonline, (mangaCovers%"209")),
     "dorohedoro2"       : Manga("dorohedoro", submanga, (mangaCovers%"209")),
     "Doubt"             : Manga("Doubt", submanga),
@@ -44,7 +42,7 @@ mangas = {
     "noblesse"          : Manga("noblesse", esmangaonline),
     "noblesse2"         : Manga("noblesse", submanga),
     "majutsu"           : Manga("to_aru_majutsu_no_index", esmangaonline),
-    "holy_knight"       : Manga("holy_knight", esmangahere, None, "holy-knight.html"),
+    "holy_knight"       : Manga("holy_knight", esmangahere, None, "holy-knight.html", (infourl%"68740")),
     "pandora"           : Manga("pandora-hearts", esmangaonline, (mangaCovers%"9709")),
     "claymore"          : Manga("claymore", esmangaonline),
     "claymore2"         : Manga("claymore", submanga),
@@ -66,6 +64,9 @@ mangas = {
     "terraFormars"      : Manga("TERRA_FORMARS", submanga),
     
     #"allKill"           : Manga("All_you_need_is_Kill", submanga, None, "all-you-need-is-kill-2.html"),    
+    #wolf_guy"          : Manga("wolf_guy", submanga, (mangaCovers%"40128"), "wolf-guy-ookami-no-monshou.html", (infourl%"40128")),
+    #"wolf_guy2"         : Manga("wolf_guy", esmangahere, (mangaCovers%"40128"), "wolf-guy-ookami-no-monshou.html", (infourl%"40128")),
+
 }
 
 letras = map(chr, range(97, 101))
