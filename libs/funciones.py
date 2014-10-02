@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import httplib, re, os
-import HTMLParser
-from model import chapter
+
 
 def splittedname(s):
     return tuple(tryint(x) for x in re.split('([0-9]+)', s[0]))
@@ -64,50 +63,4 @@ def existeURL(site, path):
     response = conn.getresponse()
     conn.close()
     return response.status == 200
-
-class VolumenHTMLParser(HTMLParser.HTMLParser):
-    def __init__(self):
-        self.reset()
-        self.VOLUMEN = []
-        self.VALIDTAG = False   
-        self.VALID_VOLUMEN = False
-        self.VALID_CAPITULO = False
-        self.INIT = False 
-    def handle_starttag(self, tag, attrs):
-        if tag == 'ul' and len(attrs) > 0 and attrs[0][0] == 'class' and attrs[0][1] == 'chapterlistfull':
-            #print '************************* Inicio listado de caps *******************************'
-            self.INIT = True
-        if not self.INIT:
-            self.VALIDTAG = False
-            return
-        #print "<%s>%s"% (tag, attrs)
-        if tag == 'li' and len(attrs) > 0 and attrs[0][0] == 'class' and attrs[0][1] == 'volume':
-            self.VALID_VOLUMEN = True 
-            
-        if tag == 'a' and len(attrs) > 1 and attrs[0][0] == 'href' and attrs[1][0] == 'id':
-            self.VALID_CAPITULO = True         
-        
-        self.VALIDTAG = True        
-    def handle_endtag(self, tag):
-        if tag == 'li':
-            self.VALID_VOLUMEN = False
-        if tag == 'a':
-            self.VALID_CAPITULO = False
-        if not self.INIT:
-            return
-        #print "</%s>"%tag
-        if tag == 'ul':
-            self.INIT = False    
-            #print '************************* Fin listado de caps *******************************'        
-    def handle_data(self, data):
-        if(not self.VALIDTAG):
-            return
-        if(self.VALID_VOLUMEN):
-            volumen = chapter.Volumen(data, [])
-            self.VOLUMEN.append(volumen)
-        if self.VALID_CAPITULO and self.VOLUMEN.__len__() > 0:
-            capitulo = chapter.Capitulo(data)
-            volumen = self.VOLUMEN.pop()
-            volumen.capitulos.append(capitulo)
-            self.VOLUMEN.append(volumen)
         #print "%s"%data

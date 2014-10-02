@@ -59,7 +59,7 @@ print 'Test wget'
 #Test: Parsea el html y genera objeto volumen como areglo
 def parserTest():
     manga = mangas['wolf_guy']   
-    volumenes = VolumenScan.listaVolumenes(manga)
+    volumenes, status = VolumenScan.listaVolumenes(manga)
     for volumen in volumenes:
         print volumen
     
@@ -129,7 +129,7 @@ def organizarVolumenesTest():
 
 def scannVolumenTest():
     manga = mangas['holy_knight']
-    lstVol = VolumenScan.listaVolumenes(manga)        
+    lstVol, status = VolumenScan.listaVolumenes(manga)        
     for volumen in lstVol:
         print volumen
 

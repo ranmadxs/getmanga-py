@@ -14,6 +14,7 @@ CONST_EXCLUSIONS_FILE = "exclusions.txt"
 CONST_INFO_FILE = "info.txt"
 
 volumenurl = "manga.animea.net"
+infourl = "https://www.mangaupdates.com/series.html?id=%s"
 
 esmangaonline = "esmangaonline.com"
 eshentaionline = "eshentaionline.com"
@@ -47,8 +48,7 @@ mangas = {
     "pandora"           : Manga("pandora-hearts", esmangaonline, (mangaCovers%"9709")),
     "claymore"          : Manga("claymore", esmangaonline),
     "claymore2"         : Manga("claymore", submanga),
-    "allumage"          : Manga("allumage", esmangaonline),
-    "allKill"           : Manga("All_you_need_is_Kill", submanga),
+    "allumage"          : Manga("allumage", esmangaonline),    
     "dance"             : Manga("dance_in_the_vampire_bund", esmangaonline),
     "berserk"           : Manga("berserk", esmangaonline, (mangaCovers%"88")),
     "berserk2"          : Manga("berserk", submanga),
@@ -63,7 +63,9 @@ mangas = {
     "parasyte2"         : Manga("parasyte", submanga),
     "is"                : Manga("is", esmangaonline, (mangaCovers%"3599")),
     "is"                : Manga("is", esmangaonline, (mangaCovers%"3599")),
-    "terraFormars"      : Manga("TERRA_FORMARS", submanga),    
+    "terraFormars"      : Manga("TERRA_FORMARS", submanga),
+    
+    #"allKill"           : Manga("All_you_need_is_Kill", submanga, None, "all-you-need-is-kill-2.html"),    
 }
 
 letras = map(chr, range(97, 101))

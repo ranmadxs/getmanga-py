@@ -22,7 +22,7 @@ def infoManga(manga = Manga):
     filein = open( '%s/tpl/info.tpl'%config.CONST_PATH_SRC )
     info = VolumenScan.getURLScann(manga)
     info = str(info).decode('utf-8')
-    lstVol = VolumenScan.listaVolumenes(manga)
+    lstVol, status = VolumenScan.listaVolumenes(manga)
     listVol = []
     countVol = int(0)
     countCap = int(0)
@@ -41,7 +41,7 @@ def infoManga(manga = Manga):
     #document data
     title = str(manga.code).decode('utf-8')
     cover = str(manga.cover).decode('utf-8')
-    d={ 'title':title, 'list':'\n'.join(listVol) , 'cover' : cover, 'info' : info, 'countCap' : countCap, 'countVol' : countVol}
+    d={ 'title':title, 'list':'\n'.join(listVol) , 'cover' : cover, 'info' : info, 'countCap' : countCap, 'countVol' : countVol, 'status' : status}
     #do the substitution
     result = src.substitute(d)
     result = result.encode('utf-8')
@@ -54,7 +54,7 @@ def organizarVolumenes(manga = Manga):
     lstFolder = MangaFile.listarArchivosCarpeta(manga)           
     if(len(lstFolder) > 0):
         totPre = len(lstFolder[0]) - 1
-        lstVol = VolumenScan.listaVolumenes(manga)        
+        lstVol, status = VolumenScan.listaVolumenes(manga)        
         for volumen in lstVol:
             lstFolderInVol = []
             capIni = volumen.capitulos[-1].name.split(" ")[-1]
