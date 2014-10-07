@@ -4,6 +4,8 @@ Created on 17-03-2014
 @author: esanchez
 '''
 
+#http://bato.to
+
 #http://submanga.com/claymore/completa
 #http://esmangaonline.com/alive/
 from model.bean import Manga
@@ -22,6 +24,7 @@ submanga = "submanga.com"
 esmangahere = "es.mangahere.co"
 mangaCovers="http://manga.joentjuh.nl/series/%s/"
 mangas = {
+    "gantz"             : Manga("gantz", submanga, (mangaCovers%"208"), "gantz.html", (infourl%"208")),
     "dragon_head"       : Manga("dragon_head", esmangahere, (mangaCovers%"384"), "dragon-head.html", (infourl%"384")),
     "dragon_head2"      : Manga("dragon_head", esmangaonline, (mangaCovers%"384"), "dragon-head.html", (infourl%"384")),
     "dragon_head3"      : Manga("dragon_head", submanga, (mangaCovers%"384"), "dragon-head.html", (infourl%"384")),

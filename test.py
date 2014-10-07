@@ -138,12 +138,16 @@ def infoMangaTest():
     #manga = mangas['ant']
     #manga = mangas['i_am_a_hero']
     Main.infoManga(manga)
+
+def renombrarArchivosTest():
+    MangaFile.renombrarArchivos('/media/Shampoo/Manga/dragon_head/volumenes/02Vol/', 'Dragonhead v02 ')
     
 '''
  ########## Inicio Ejec Test #########
 '''
-    
-infoMangaTest()   
+
+renombrarArchivosTest()
+#infoMangaTest()   
 #parserTest()
 #organizarVolumenesTest()
 #listaCapitulosTest()
