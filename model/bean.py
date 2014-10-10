@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 from model import AbstractUtilDTO
 class Manga(AbstractUtilDTO):
+    CONSTANT_INFO_URL = "https://www.mangaupdates.com/series.html?id=%s"
+    CONSTANT_MANGA_COVERS_URL = "http://manga.joentjuh.nl/series/%s/"
+    id= ""
     site = ""
     code = ""
     url = ""
@@ -9,15 +12,16 @@ class Manga(AbstractUtilDTO):
     cover = ""
     urlVolumen = None
     infoUrl = ""
-    def __init__(self, code=None, site=None, cover=None, urlVolumen=None, infoUrl=None, length=0, url=None, capitulos = []):
+    def __init__(self, code=None, site=None, idManga=None, urlVolumen=None, length=0, url=None, capitulos = []):
+        self.id = idManga
         self.code = code
         self.site = site
         self.urlVolumen = urlVolumen
         self.length=length
         self.url = url
         self.capitulos = capitulos
-        self.cover = cover
-        self.infoUrl = infoUrl
+        self.cover = (self.CONSTANT_MANGA_COVERS_URL%idManga)
+        self.infoUrl = (self.CONSTANT_INFO_URL%idManga)
         
 class Capitulo(AbstractUtilDTO):
     code = ""
