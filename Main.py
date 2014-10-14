@@ -52,7 +52,7 @@ def infoManga(manga = Manga):
     file_.close()
 
 def organizarVolumenes(manga = Manga):
-    lstFolder = MangaFile.listarArchivosCarpeta(manga)           
+    lstFolder = MangaFile.listarArchivosCarpeta(manga)       
     if(len(lstFolder) > 0):
         totPre = len(lstFolder[0]) - 1
         lstVol, status = VolumenScan.listaVolumenes(manga)        
@@ -67,10 +67,9 @@ def organizarVolumenes(manga = Manga):
                 downloadDir = "%s%s/download/%s"%(config.CONST_PATH, manga.code, folder)
                 if capIni <= folder and folder <= capFin:
                     lstFolderInVol.append(downloadDir)
-           # log.debug(lstFolderInVol)
             if(lstFolderInVol.__len__()> 0):                
                 volumenName = volumen.name.split(" ")[-1]
-                volumenName = "%s - %s %s-%s"%(funciones.prefijo(str(volumenName), 2), str(manga.code).title(), capIni, capFin)
+                volumenName = "%s\ %s\ %s-%s"%(funciones.prefijo(str(volumenName), 2), str(manga.code).title(), capIni, capFin)
                 volumensDir = "%s%s/volumenes/%s"%(config.CONST_PATH, manga.code, volumenName)
                 volumensDir = volumensDir.replace(' ', '')
                 log.debug("[mkdir] =>%s"%volumensDir)
@@ -78,7 +77,39 @@ def organizarVolumenes(manga = Manga):
                 for folder in lstFolderInVol:
                     folderName = folder.split("/")[-1]
                     destFolder = "%s/%s"%(volumensDir, folderName)
-                    MangaFile.move(folder, destFolder)
+                    MangaFile.move(folder, destFolder)         
+    else:
+        log.error("No se han encontrado capítulos en la carpeta download")               
+    volumensDir = "%s%s/volumenes/"  %(config.CONST_PATH, manga.code)
+    coverDir = "%s%s/covers/"  %(config.CONST_PATH, manga.code)
+    lstVolumen = MangaFile.listaArchivosPath(volumensDir)
+    lstCovers = MangaFile.listaArchivosPath(coverDir)
+    log.info("Poniendo las carátulas en los volúmenes")
+    if(len(lstVolumen) > 0) and (len(lstCovers) > 0):
+        for volumen in lstVolumen:
+            volFolder = "%s%s"%(volumensDir, volumen)
+            log.debug(volFolder)
+            numVol = volumen.split(" ")[0]
+            frontFile = "%s v%s_front.jpg"%(manga.id, numVol)
+            fullFile = "%s v%s_full.jpg"%(manga.id, numVol)
+            tocFile = "%s v%s_toc.jpg"%(manga.id, numVol)
+            backFile = "%s v%s_back.jpg"%(manga.id, numVol)
+            if (frontFile in lstCovers):
+                origen = "%s%s"%(coverDir,frontFile)
+                destino = "%s/001_front.jpg"%(volFolder)                
+                MangaFile.copy(origen, destino)
+            if (fullFile in lstCovers):
+                origen = "%s%s"%(coverDir,fullFile)
+                destino = "%s/002_full.jpg"%(volFolder)                
+                MangaFile.copy(origen, destino)
+            if (tocFile in lstCovers):
+                origen = "%s%s"%(coverDir,tocFile)
+                destino = "%s/003_toc.jpg"%(volFolder)                
+                MangaFile.copy(origen, destino)
+            if (backFile in lstCovers):
+                origen = "%s%s"%(coverDir,backFile)
+                destino = "%s/z004_back.jpg"%(volFolder)                
+                MangaFile.copy(origen, destino)
 
 def descargarManga(codigoManga = None, parametros = ParamDescarga):
     log.debug(codigoManga)

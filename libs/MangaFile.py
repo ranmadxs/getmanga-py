@@ -14,7 +14,12 @@ from warnings import catch_warnings
 
 def listarArchivosCarpeta(manga = Manga ):
     dirName = "%s%s/download/"%(config.CONST_PATH, manga.code)
-    files = os.listdir(dirName)
+    return listaArchivosPath(dirName)
+
+def listaArchivosPath(dirName = None):
+    files = []
+    if dirName != None:
+        files = os.listdir(dirName)
     return files
 
 def totalArchivosCarpeta(capitulo = Capitulo):
@@ -56,6 +61,13 @@ def crearDirectorio(capitulo = Capitulo, manga = Manga):
 def move(orig=None, dest=None):
     log.debug("[mv] %s -> %s "%(orig, dest))
     shutil.move(orig, dest)
+
+def copy(orig=None, dest=None):
+    if(not os.path.isfile(dest)):
+        log.debug("[cp] %s -> %s "%(orig, dest))
+        shutil.copyfile(orig, dest)
+    else:
+        log.file("El archivo [%s] ya exíste"%dest)        
 
 def makeDir(dirName = None):
     if not os.path.exists(dirName):

@@ -24,9 +24,6 @@ submanga = "submanga.com"
 esmangahere = "es.mangahere.co"
 #mangaCovers="http://manga.joentjuh.nl/series/%s/"
 mangas = {    
-    "dragon_head"       : Manga("dragon_head", esmangahere, "384", "dragon-head.html"),
-    "dragon_head2"      : Manga("dragon_head", esmangaonline, "384", "dragon-head.html"),
-    "dragon_head3"      : Manga("dragon_head", submanga, "384", "dragon-head.html"),
     "ant"               : Manga("apocalypse_no_toride", esmangahere, "68982", "apocalypse-no-toride.html"),
     "ant2"              : Manga("apocalypse_no_toride", submanga, "68982", "apocalypse-no-toride.html"),
     "btooom"            : Manga("btooom", esmangahere), 
@@ -57,13 +54,19 @@ mangas = {
     "alive"             : Manga("alive", esmangaonline),
     "uzumaki"           : Manga("uzumaki", esmangaonline),
     "uzumaki2"          : Manga("uzumaki", submanga),
-    "parasyte"          : Manga("parasyte", esmangaonline),
     "priest"            : Manga("priest", esmangaonline),
     "yahari"            : Manga("Yahari_Ore_no_Seishun_Love_Come_wa_Machigatteiru", submanga),
-    "parasyte2"         : Manga("parasyte", submanga),
     "is"                : Manga("is", esmangaonline, "3599"),
     "is"                : Manga("is", esmangaonline, "3599"),
     "terraFormars"      : Manga("TERRA_FORMARS", submanga),
+    "mushishi"          : Manga("mushishi", esmangahere, "452", "mushishi.html"),
+    "alita"             : Manga("battle-angel-alita", esmangaonline, "2157", "battle-angel-alita.html"),
+    
+    "parasyte"          : Manga("parasyte", esmangaonline),
+    "parasyte2"         : Manga("parasyte", submanga),    
+    "dragon_head"       : Manga("dragon_head", esmangahere, "384", "dragon-head.html"),
+    "dragon_head2"      : Manga("dragon_head", esmangaonline, "384", "dragon-head.html"),
+    "dragon_head3"      : Manga("dragon_head", submanga, "384", "dragon-head.html"),
     
     #"allKill"           : Manga("All_you_need_is_Kill", submanga, None, "all-you-need-is-kill-2.html"),    
     #wolf_guy"          : Manga("wolf_guy", submanga, (mangaCovers%"40128"), "wolf-guy-ookami-no-monshou.html", (infourl%"40128")),

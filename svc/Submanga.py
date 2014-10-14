@@ -57,7 +57,7 @@ def obtenerCapitulos(manga = Manga, urlCapitulos = '', parametros = ParamDescarg
             codCap = cap[0][0].split("/")[-2]
             codCap = funciones.prefijo(codCap, totPre)
             capIni = funciones.prefijo(str(codCapituloIni), totPre)
-            codCap = funciones.decode(codCap)
+            #codCap = funciones.decode(codCap)
             if(parametros.tipo == TYPE.UNIQUE and codCap == capIni):
                 listCapsRet.append(cap)
                 break

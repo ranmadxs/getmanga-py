@@ -7,10 +7,12 @@ from model import AbstractUtilDTO
 
 class Volumen(AbstractUtilDTO):
     name = ""
+    folder = ""
     capitulos = []
-    def __init__(self, name=None, capitulos = []):
+    def __init__(self, name=None, capitulos = [], folder = ""):
         self.name = name
         self.capitulos = capitulos
+        self.folder = folder
         
 class Capitulo(AbstractUtilDTO):
     name = ""

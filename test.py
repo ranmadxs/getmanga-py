@@ -124,11 +124,11 @@ def excludeFilesTest():
             listCapitulos.append(capitulo)
 
 def organizarVolumenesTest():
-    manga = mangas['holy_knight']
+    manga = mangas['liar_game']
     Main.organizarVolumenes(manga)
 
 def scannVolumenTest():
-    manga = mangas['holy_knight']
+    manga = mangas['liar_game']
     lstVol, status = VolumenScan.listaVolumenes(manga)        
     for volumen in lstVol:
         print volumen
@@ -146,10 +146,10 @@ def renombrarArchivosTest():
  ########## Inicio Ejec Test #########
 '''
 
-renombrarArchivosTest()
+#renombrarArchivosTest()
 #infoMangaTest()   
 #parserTest()
-#organizarVolumenesTest()
+organizarVolumenesTest()
 #listaCapitulosTest()
 #listaImagenesTest()
 #obtenerImagenTest()
