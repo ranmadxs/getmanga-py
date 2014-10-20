@@ -57,7 +57,6 @@ mangas = {
     "priest"            : Manga("priest", esmangaonline),
     "yahari"            : Manga("Yahari_Ore_no_Seishun_Love_Come_wa_Machigatteiru", submanga),
     "is"                : Manga("is", esmangaonline, "3599"),
-    "is"                : Manga("is", esmangaonline, "3599"),
     "terraFormars"      : Manga("TERRA_FORMARS", submanga),
     "mushishi"          : Manga("mushishi", esmangahere, "452", "mushishi.html"),
     "alita"             : Manga("battle-angel-alita", esmangaonline, "2157", "battle-angel-alita.html"),
