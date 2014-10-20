@@ -69,7 +69,7 @@ def organizarVolumenes(manga = Manga):
                     lstFolderInVol.append(downloadDir)
             if(lstFolderInVol.__len__()> 0):                
                 volumenName = volumen.name.split(" ")[-1]
-                volumenName = "%s\ %s\ %s-%s"%(funciones.prefijo(str(volumenName), 2), str(manga.code).title(), capIni, capFin)
+                volumenName = "%s-%s-%s-%s"%(funciones.prefijo(str(volumenName), 2), str(manga.code).title(), capIni, capFin)
                 volumensDir = "%s%s/volumenes/%s"%(config.CONST_PATH, manga.code, volumenName)
                 volumensDir = volumensDir.replace(' ', '')
                 log.debug("[mkdir] =>%s"%volumensDir)
@@ -89,7 +89,7 @@ def organizarVolumenes(manga = Manga):
         for volumen in lstVolumen:
             volFolder = "%s%s"%(volumensDir, volumen)
             log.debug(volFolder)
-            numVol = volumen.split(" ")[0]
+            numVol = volumen.split("-")[0]
             frontFile = "%s v%s_front.jpg"%(manga.id, numVol)
             fullFile = "%s v%s_full.jpg"%(manga.id, numVol)
             tocFile = "%s v%s_toc.jpg"%(manga.id, numVol)
