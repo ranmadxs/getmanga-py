@@ -17,7 +17,7 @@ def getURLScann(manga = Manga):
 
 def getMangaInfo(manga = Manga):
     parser = InfoHTMLParser()
-    http = httplib2.Http()
+    http = httplib2.Http(".cache", disable_ssl_certificate_validation=True)
     log.info("http.request[infoManga] ==> %s"%manga.infoUrl)
     headers, body = http.request(manga.infoUrl)
     #body = str(body).decode('utf-8')

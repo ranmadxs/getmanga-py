@@ -12,7 +12,7 @@ _getmanga()
     else
         if [ $COMP_CWORD -eq 1 ]; then
             COMPREPLY=( $( compgen -W 'ant btooom claymore liar_game i_am_a_hero zetman \
-                                       dorohedoro slam-dunk' -- "$cur" ) )
+                                       dorohedoro slam-dunk sun_ken_rock' -- "$cur" ) )
         else
             _filedir rar
         fi
