@@ -60,6 +60,8 @@ def organizarVolumenes(manga = Manga):
             lstFolderInVol = []
             capIni = volumen.capitulos[-1].name.split(" ")[-1]
             capFin = volumen.capitulos[0].name.split(" ")[-1]
+            capIni = funciones.eliminarChrToEnd(capIni, ".")
+            capFin = funciones.eliminarChrToEnd(capFin, ".")
             capIni = "C%s"%funciones.prefijo(str(capIni), totPre)
             capFin = "C%s"%funciones.prefijo(str(capFin), totPre)
             log.info( "%s ):: %s -> %s"%(volumen.name, capIni, capFin))
