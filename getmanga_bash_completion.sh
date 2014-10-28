@@ -8,10 +8,20 @@ _getmanga()
 
     while read line
     do
-     cmdLine="$cmdLine $line"
+	arrayManga=$(echo $line | tr "\t" "\n")
+	for x in $arrayManga
+	do
+    		cmdLine="$cmdLine $x"
+		break
+	done
     done < $pathFile
+    arrayManga=$(echo $line | tr "\t" "\n")
+    for x in $arrayManga
+    do
+     cmdLine="$cmdLine $x"
+     break
+    done
 
-    cmdLine="$cmdLine $line"
     COMPREPLY=()
     _get_comp_words_by_ref cur
 
