@@ -124,7 +124,7 @@ def excludeFilesTest():
             listCapitulos.append(capitulo)
 
 def organizarVolumenesTest():
-    manga = mangas['majutsu']
+    manga = mangas['kagerou_days']
     Main.organizarVolumenes(manga)
 
 def scannVolumenTest():

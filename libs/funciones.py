@@ -48,6 +48,11 @@ def decode(texto):
     texto = texto.replace('\xc2\xb7', '-')
     return texto
 
+def eliminarChrToEnd(s = '', chr = None):
+    if chr != None and s.find(chr) != -1:
+        s = s[:s.find(chr)]        
+    return s
+
 #http://eshentaionline.com/Circunstancias-Familiares/02
 def prefijo(nombre, largo = 0):
     dif = largo - len(nombre)
