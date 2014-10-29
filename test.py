@@ -146,10 +146,11 @@ def renombrarArchivosTest():
  ########## Inicio Ejec Test #########
 '''
 
+print mangas
 #renombrarArchivosTest()
 #infoMangaTest()   
 #parserTest()
-organizarVolumenesTest()
+#organizarVolumenesTest()
 #listaCapitulosTest()
 #listaImagenesTest()
 #obtenerImagenTest()

@@ -76,10 +76,10 @@ def makeDir(dirName = None):
     else:
         log.error("La carpeta [%s] ya exíste"%dirName)
 
-def readFile(file):
+def readFile(archivo):
     lines = []
     try:
-        lines = [line.strip() for line in open(file)]
+        lines = [line.strip() for line in open(archivo)]
     except IOError:
         None
     return lines
