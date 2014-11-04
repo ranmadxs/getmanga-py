@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+########### Resivas el error los archivos deben ser renombrados
+
 '''
 Created on 17-03-2014
 
@@ -29,6 +31,15 @@ def capituloZetaman2():
     capitulo.title = "Zetman 14"
     capitulo.length = 0
     capitulo.folder = "/media/Shampoo/Manga/zetman/download/C014"
+    return capitulo
+
+def capituloSprite():    
+    capitulo = Capitulo()
+    capitulo.code = "1"
+    capitulo.url = "http://esmanga.com/manga/sprite/c1"
+    capitulo.title = "Sprite 1"
+    capitulo.length = 0
+    capitulo.folder = "/media/Shampoo/Manga/sprite/download/C01"
     return capitulo
 
 def capituloLiar_game2():    
@@ -68,16 +79,16 @@ def descargaCaratulasTest():
     Cover.obtenerCaratulas(manga)
 
 def listaCapitulosTest():
-    manga = mangas['liar_game2']
-    #paramDescarga = ParamDescarga(None, None)
-    paramDescarga = ParamDescarga('13', None)
+    manga = mangas['sprite']
+    paramDescarga = ParamDescarga(None, None)
+    #paramDescarga = ParamDescarga('13', None)
     manga = MangaGet.lstCapitulos(manga, paramDescarga)
     log.info(manga)
 
 def listaImagenesTest():
     #manga = mangas['liar_game2']
-    manga = mangas['zetman2']
-    capitulo = capituloZetaman2()
+    manga = mangas['sprite']
+    capitulo = capituloSprite()
     MangaGet.lstImagenes(manga, capitulo)
     log.info(capitulo)
     
@@ -99,7 +110,7 @@ def expresionesRegularesTest():
 
 def descargaMagnaTest():
     paramDescarga = ParamDescarga('13', TYPE.UNIQUE)
-    Main.descargarManga('liar_game2', paramDescarga)
+    Main.descargarManga('sprite', paramDescarga)
 
 
 def obtenerImagenTest():
@@ -146,13 +157,13 @@ def renombrarArchivosTest():
  ########## Inicio Ejec Test #########
 '''
 
-print mangas
+
 #renombrarArchivosTest()
 #infoMangaTest()   
 #parserTest()
 #organizarVolumenesTest()
 #listaCapitulosTest()
-#listaImagenesTest()
+listaImagenesTest()
 #obtenerImagenTest()
 #descargaCaratulasTest()
 #descargaMagnaTest()

@@ -7,7 +7,7 @@ Created on 17-03-2014
 '''
 import httplib2, re
 import config
-from svc import Esmangaonline, Submanga, Esmangahere
+from svc import Esmangaonline, Submanga, Esmangahere, Esmanga
 from libs import log, funciones
 from model.bean import Capitulo, Manga, Imagen
 from model.TYPE import ParamDescarga
@@ -17,6 +17,7 @@ from model import TYPE
 
 CONST_EXP_OBT_IMAGEN='<img id="img_mng_enl" src="(.+?)" alt="(.+?)"/>'
 CONST_ESMANGAHERE_IMG = '<img src="(.+?)" width="(.+?)" id="image" alt="(.+?)" />'
+CONST_ESMANGA_IMG = '<img style="width:100% !important;" src="(.+?)" alt="(.+?)" />'
 
 http = httplib2.Http()
     
@@ -40,6 +41,9 @@ def lstCapitulos(manga = Manga, parametros = ParamDescarga):
             if manga.site == config.esmangahere:
                 urlCapitulo = Esmangahere.obtenerURLCaps(manga)
                 caps, manga = Esmangahere.obtenerCapitulos(manga, urlCapitulo, parametros)
+            if manga.site == config.esmanga:
+                urlCapitulo = Esmanga.obtenerURLCaps(manga)
+                caps, manga = Esmanga.obtenerCapitulos(manga, urlCapitulo, parametros)
         except IndexError:                
             retry = True
         finally:
@@ -56,6 +60,8 @@ def lstImagenes(manga = Manga, capitulo = Capitulo):
         lstImagenes = Submanga.obtenerImagenes(capitulo) 
     if manga.site == config.esmangahere:
         lstImagenes = Esmangahere.obtenerImagenes(capitulo, manga)
+    if manga.site == config.esmanga:
+        lstImagenes = Esmanga.obtenerImagenes(capitulo, manga)
 
     capitulo.imagenes = lstImagenes
     capitulo.length = len(lstImagenes)
@@ -66,6 +72,8 @@ def obtenerImagen(manga = Manga, imagen = Imagen):
         pat = re.compile(CONST_EXP_OBT_IMAGEN)
     if(manga.site == config.esmangahere):
         pat = re.compile(CONST_ESMANGAHERE_IMG)        
+    if(manga.site == config.esmanga):
+        pat = re.compile(CONST_ESMANGA_IMG)        
     if(manga.site == config.submanga):
         pat = re.compile('<div><a href="[^"]+"><img src="(.+?)"/></a><br/></div>')
     log.info("http.request[obtenerImagen] ==> %s"%imagen.url)
@@ -83,6 +91,8 @@ def obtenerImagen(manga = Manga, imagen = Imagen):
         if(manga.site == config.submanga):
             imagen.urlReal = img
         if(manga.site == config.esmangahere):
+            imagen.urlReal = img[0]
+        if(manga.site == config.esmanga):
             imagen.urlReal = img[0]
     return imagen
 

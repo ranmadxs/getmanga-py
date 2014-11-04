@@ -5,8 +5,6 @@ Created on 17-03-2014
 '''
 
 
-
-
 #http://es.mangahere.co/manga/freezing/
 #http://bato.to
 
@@ -23,10 +21,18 @@ CONST_MANGA_CFT_FILE = "/home/esanchez/lenguajes/python/wget/list_manga.cfg"
 volumenurl = "manga.animea.net"
 #infourl = "https://www.mangaupdates.com/series.html?id=%s"
 
+# MANGA SERVERS
+
 esmangaonline = "esmangaonline.com"
 eshentaionline = "eshentaionline.com"
 submanga = "submanga.com"
 esmangahere = "es.mangahere.co"
+esmanga = "esmanga.com"
+
+## Nuevo servidor -> http://esmanga.com
+
+MANGA_DEFAULT_SERVER = esmangahere
+
 #mangaCovers="http://manga.joentjuh.nl/series/%s/"
 mangas = {    
     "Doubt"             : Manga("Doubt", submanga),
@@ -94,7 +100,7 @@ for mangaFileList in listMangaFile:
             mangaArray.append(mangaField)  
     if mangaArray.__len__() < 3:        
         mangaArray[mangaArray.__len__():3] = [None] * (3 - mangaArray.__len__())
-    mangaObj = Manga(mangaArray[0], esmangahere, mangaArray[1], mangaArray[2])
+    mangaObj = Manga(mangaArray[0], MANGA_DEFAULT_SERVER, mangaArray[1], mangaArray[2])
     #print mangaObj
     mangas[mangaArray[0]] = mangaObj
 

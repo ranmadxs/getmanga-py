@@ -145,7 +145,7 @@ def descargarManga(codigoManga = None, parametros = ParamDescarga):
                         retry = True
                     finally:
                         numberRetry = numberRetry + 1
-            if(manga.site == config.submanga): 
+            if(manga.site == config.submanga or manga.site == config.esmanga): 
                 MangaFile.renombrarArchivos("%s/"%capitulo.folder, '')      
         else:
             log.error("Todos los archivos del capitulo %s ya han sido descargados"%capitulo.title)                              
