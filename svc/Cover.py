@@ -19,6 +19,7 @@ def obtenerCaratulas(manga = Manga):
         http = httplib2.Http()
         headers, body = http.request(manga.cover)
         li = pat.findall("%s"%body)
+        print body
         for elem in li:
             log.debug("%s (%s)" %( elem[1], elem[0]))
             headers, body = http.request(elem[0])    

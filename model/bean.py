@@ -2,14 +2,14 @@
 from model import AbstractUtilDTO
 class Manga(AbstractUtilDTO):
     CONSTANT_INFO_URL = "https://www.mangaupdates.com/series.html?id=%s"
-    CONSTANT_MANGA_COVERS_URL = "http://manga.joentjuh.nl/series/%s/"
+    CONSTANT_MANGA_COVERS_URL = "http://mcd.iosphe.re/api/v1/series/%s/"
     id= ""
     site = ""
     code = ""
     url = ""
     length = 0
     capitulos = []
-    cover = ""
+    cover = None
     urlVolumen = None
     infoUrl = ""
     def __init__(self, code=None, site=None, idManga=None, urlVolumen=None, length=0, url=None, capitulos = []):
@@ -20,7 +20,10 @@ class Manga(AbstractUtilDTO):
         self.length=length
         self.url = url
         self.capitulos = capitulos
-        self.cover = (self.CONSTANT_MANGA_COVERS_URL%idManga)
+        if (not idManga is None and idManga != '0'):
+            self.cover = (self.CONSTANT_MANGA_COVERS_URL%idManga)
+        else:
+            self.cover = None
         self.infoUrl = (self.CONSTANT_INFO_URL%idManga)
         
 class Capitulo(AbstractUtilDTO):

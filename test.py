@@ -22,6 +22,7 @@ from model.TYPE import ParamDescarga
 from model import TYPE
 from svc import Cover, Esmangahere, VolumenScan
 import HTMLParser
+import threading
 
 ########### BASIC DATA TEST ####################3
 def capituloZetaman2():    
@@ -75,7 +76,7 @@ def parserTest():
         print volumen
     
 def descargaCaratulasTest():    
-    manga = mangas['is']
+    manga = mangas['sprite']
     Cover.obtenerCaratulas(manga)
 
 def listaCapitulosTest():
@@ -157,15 +158,65 @@ def renombrarArchivosTest():
  ########## Inicio Ejec Test #########
 '''
 
+descargaCaratulasTest()
+
+exit(0)
+
+import time
+import thread
+
+def worker():
+    print threading.currentThread().getName(), 'Lanzado (Worker)'
+    time.sleep(2)
+    print threading.currentThread().getName(), 'Deteniendo'
+
+def servicio():
+    print threading.currentThread().getName(), 'Lanzado'
+    print threading.currentThread().getName(), 'Deteniendo'
+
+t = threading.Thread(target=servicio, name='Servicio')
+
+w = threading.Thread(target=worker, name='Worker')
+
+z = threading.Thread(target=worker)
+
+w.start()
+
+z.start()
+
+t.start()
+
+
+
+# Define a function for the thread
+def print_time( threadName, delay):
+   count = 0
+   while count < 5:
+      time.sleep(delay)
+      count += 1
+      print "%s: %s" % ( threadName, time.ctime(time.time()) )
+
+# Create two threads as follows
+try:
+   thread.start_new_thread( print_time, ("Thread-1", 2, ) )
+   thread.start_new_thread( print_time, ("Thread-2", 4, ) )
+except:
+   print "Error: unable to start thread"
+
+while 1:
+   pass
 
 #renombrarArchivosTest()
 #infoMangaTest()   
 #parserTest()
 #organizarVolumenesTest()
 #listaCapitulosTest()
-listaImagenesTest()
+#listaImagenesTest()
 #obtenerImagenTest()
-#descargaCaratulasTest()
+
 #descargaMagnaTest()
 exit(0)
+#open the file template
+filein = open( '/media/Shampoo/Libros/lista_92000.txt' )
+str(filein.read()).decode('utf-8')
 

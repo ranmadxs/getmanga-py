@@ -3,7 +3,7 @@ Created on 17-03-2014
 
 @author: esanchez
 '''
-
+#TODO: Debo arreglar el programa que baja las caraatulas por que el josting murio y ahora hay uno nuevo
 
 #http://es.mangahere.co/manga/freezing/
 #http://bato.to
@@ -33,7 +33,11 @@ esmanga = "esmanga.com"
 
 MANGA_DEFAULT_SERVER = esmangahere
 
-#mangaCovers="http://manga.joentjuh.nl/series/%s/"
+#mangaCovers="http://manga.joentjuh.nl/series/%s/" -> ya no sirve
+#mangaCovers=http://mcd.iosphe.re/ -> esta es la nueva y mantiene los mismos ids parece
+#http://mcd.iosphe.re/manga/42898/   tiene api json XDDD     =>   http://mcd.iosphe.re/api/v1/series/%s/
+
+# por ejemplo http://mcd.iosphe.re/manga/1037/
 mangas = {    
     "Doubt"             : Manga("Doubt", submanga),
     "shingeki_no_kyojin": Manga("shingeki_no_kyojin", esmangaonline, "47446"),    
@@ -93,15 +97,16 @@ def readFile(archivo):
 listMangaFile = readFile(CONST_MANGA_CFT_FILE)
 #print listMangaFile
 for mangaFileList in listMangaFile:
-    mangaArray = []
+    mangaArray = []    
     mangaFileArray = mangaFileList.split("\t")
     for mangaField in mangaFileArray:
         if mangaField.strip() != "":
             mangaArray.append(mangaField)  
     if mangaArray.__len__() < 3:        
         mangaArray[mangaArray.__len__():3] = [None] * (3 - mangaArray.__len__())
-    mangaObj = Manga(mangaArray[0], MANGA_DEFAULT_SERVER, mangaArray[1], mangaArray[2])
+    mangaCode = mangaArray[0].strip()
+    mangaObj = Manga(mangaCode, MANGA_DEFAULT_SERVER, mangaArray[1], mangaArray[2])
     #print mangaObj
-    mangas[mangaArray[0]] = mangaObj
+    mangas[mangaCode] = mangaObj
 
 letras = map(chr, range(97, 101))
