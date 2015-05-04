@@ -5,38 +5,33 @@ Created on 11-04-2014
 
 @author: esanchez
 '''
+import json
+import urllib2
 import httplib2, re
 import config
 from model.bean import Capitulo, Manga, Imagen
-from libs import log
+from libs import log, funciones
 import os
 
 def obtenerCaratulas(manga = Manga):
     log.info("Obtener caratulas")
     if not manga.cover is None:
         dirName = crearDirectorioCaratula(manga)
-        pat = re.compile('<a href="(.+?)" title="(.+?)">')
-        http = httplib2.Http()
-        headers, body = http.request(manga.cover)
-        li = pat.findall("%s"%body)
-        print body
-        for elem in li:
-            log.debug("%s (%s)" %( elem[1], elem[0]))
-            headers, body = http.request(elem[0])    
-            rex = re.compile(r'<div class="raw_links clear">(.*?)<div class="block" id="unsorted" style="margin-top:5px;padding-top:10px;text-align:center;">',re.S|re.M)
-            match = rex.findall("%s"%body)                
-            pat = re.compile('<a href="(.+?)">')
-            imagenes = pat.findall("%s"%match[0])
-            for img in imagenes:                
-                descargarImagenCover(dirName, img)
+        data = json.load(urllib2.urlopen(manga.cover))
+        #print data["MUid"]
+        if not "Error" in data:
+            for cover in data["Covers"]["a"]:
+            #print cover
+                filename = '%s\\ v%s_%s.jpg'%(data["MUid"], funciones.prefijo(str(cover["Volume"]), 2), cover["Side"])
+                descargarImagenCover(dirName, cover["Raw"], filename)
+        else:
+            log.error('%s => [%s] %s'% (manga.code, manga.id, data["Error"]))
 
-def descargarImagenCover(folder, imgUrl):
-    filename = imgUrl.split("/")[-1]
+def descargarImagenCover(folder, imgUrl, filename):
     filePath = '%s/%s' %(folder, filename)
-    if(not os.path.isfile(filePath)):
-        imgRealUrl = imgUrl.replace(' ', '\ ')
-        os.system('wget %s -P %s' % (imgRealUrl, folder))
-        log.info('wget %s -P %s'%( imgRealUrl, folder))
+    if(not os.path.isfile(filePath)): 
+        log.info('curl %s -o %s/%s'%( imgUrl, folder, filename))
+        os.system('curl %s -o %s/%s' % ( imgUrl, folder, filename)) 
     else:
         log.error('El archivo [%s] ya existe'% filename)
     
