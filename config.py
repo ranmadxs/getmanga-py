@@ -3,8 +3,7 @@ Created on 17-03-2014
 
 @author: esanchez
 '''
-#TODO: Debo arreglar el programa que baja las caraatulas por que el josting murio y ahora hay uno nuevo
-
+#TODO: crear log errores para los threads
 #http://es.mangahere.co/manga/freezing/
 #http://bato.to
 
@@ -16,6 +15,7 @@ CONST_PATH='/media/Shampoo/Manga/'
 CONST_FILE_LOG = 'logs.csv'
 CONST_EXCLUSIONS_FILE = "exclusions.txt"
 CONST_INFO_FILE = "info.txt"
+CONST_DOWNLOAD_FILE = "download.txt"
 CONST_MANGA_CFT_FILE = "/home/esanchez/lenguajes/python/wget/list_manga.cfg"
 
 volumenurl = "manga.animea.net"
