@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import httplib, re, os
-
+import codecs
 
 def splittedname(s):
     return tuple(tryint(x) for x in re.split('([0-9]+)', s[0]))

@@ -41,5 +41,5 @@ def file(msg):
     
 #TODO: Deo eliminar este metodo y los comentarios
 def close():
-    print "close"
+    print ("close")
     #fileLog.close()

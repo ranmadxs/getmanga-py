@@ -24,7 +24,17 @@ from svc import Cover, Esmangahere, VolumenScan
 import HTMLParser
 import threading
 
-########### BASIC DATA TEST ####################3
+########### BASIC DATA TEST ####################
+def capituloZunKenRock():
+    capitulo = Capitulo()
+    capitulo.code = "6"
+    capitulo.url = "http://submanga.org/sun-ken-rock/capitulo/6"
+    capitulo.title = "Zun Ken Rock 6"
+    capitulo.length = 0
+    capitulo.folder = "/Manga/sun_ken_rock/download/C06"
+    return capitulo
+
+
 def capituloZetaman2():    
     capitulo = Capitulo()
     capitulo.code = "14"
