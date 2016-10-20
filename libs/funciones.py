@@ -3,9 +3,10 @@
 import httplib, re, os
 import codecs
 
-def agregaCeros(codigo, cant):
-    codigoResp = "0%s"%codigo
+def agregaCeros(codigo, cant):    
+    codigoResp = codigo
     if( len(codigoResp) < cant):
+        codigoResp = "0%s"%codigo
         codigoResp = agregaCeros(codigoResp, cant)
     return codigoResp
 

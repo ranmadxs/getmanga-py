@@ -51,17 +51,21 @@ print ">>>>>>>>  Fin test getCapitulo <<<<<<<<<<<"
 '''
 
 
-manga = listaCapTest("sun_ken_rock2")
-for capitulo in manga.capitulos:
-    print capitulo
-    
-print ">>>>>>>>  Fin test listaCapTest <<<<<<<<<<<"
+
 
 capitulo = listaImagenesTest("2", "sun_ken_rock2")
 for imagen in capitulo.imagenes:
     print imagen
 print ">>>>>>>>  Fin test listaImagenesTest <<<<<<<<<<<"
 
+manga = listaCapTest("sun_ken_rock2")
+for capitulo in manga.capitulos:
+    print capitulo
+    
+print ">>>>>>>>  Fin test listaCapTest <<<<<<<<<<<"
+
 '''
 
-descargaMagnaTest("2", "sun_ken_rock")
+
+
+descargaMagnaTest("148", "sun_ken_rock")
