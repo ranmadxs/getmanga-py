@@ -20,6 +20,13 @@ CONST_ESMANGAHERE_IMG = '<img src="(.+?)" width="(.+?)" id="image" alt="(.+?)" /
 CONST_ESMANGA_IMG = '<img style="width:100% !important;" src="(.+?)" alt="(.+?)" />'
 
 http = httplib2.Http()
+
+def obtenerCapitulo(manga = Manga, codCapitulo = None):
+    if codCapitulo != None :
+        parametros = ParamDescarga(codCapitulo, TYPE.UNIQUE)
+        manga = lstCapitulos(manga, parametros)
+        return (manga.capitulos[:1] or [None])[0]
+    return None
     
 def lstCapitulos(manga = Manga, parametros = ParamDescarga):
     caps = []

@@ -22,35 +22,37 @@ import HTMLParser
 import threading
 
 
-def capituloZunKenRock():
-    capitulo = Capitulo()
-    capitulo.code = "6"
-    capitulo.url = "http://submanga.org/sun-ken-rock/capitulo/6/es"
-    capitulo.title = "Zun Ken Rock 6"
-    capitulo.length = 0
-    capitulo.folder = "/Manga/sun_ken_rock/download/C06"
+def getCapitulo(capituloCode, mangaCode):
+    manga = mangas[mangaCode]
+    capitulo = MangaGet.obtenerCapitulo(manga, capituloCode)
     return capitulo
 
-def listaCapTest():
-    manga = mangas['sun_ken_rock']
-    paramDescarga = ParamDescarga('6', TYPE.UNIQUE)
-    #paramDescarga = ParamDescarga('13', None)
-    manga = MangaGet.lstCapitulos(manga, paramDescarga)
-    for capitulo in manga.capitulos:
-        print capitulo
+def listaCapTest(mangaCode):
+    manga = mangas[mangaCode]
+    manga = MangaGet.lstCapitulos(manga)
+    return manga
     #log.info(manga)
 
-def listaImagenesTest():
-    #manga = mangas['liar_game2']
-    manga = mangas['sun_ken_rock']
-    capitulo = capituloZunKenRock()
-    MangaGet.lstImagenes(manga, capitulo)
-    log.info(capitulo)
+#def listaImagenesTest():
+#    manga = mangas['sun_ken_rock']
+#    capitulo = capituloZunKenRock()
+#    MangaGet.lstImagenes(manga, capitulo)
+#    log.info(capitulo)
 
 def descargaMagnaTest():
     paramDescarga = ParamDescarga('10', TYPE.UNIQUE)
     Main.descargarManga('sun_ken_rock', paramDescarga)
 
-#listaCapTest()
+#TInicio est 1
+capitulo = getCapitulo("2", "sun_ken_rock2")
+print capitulo
+print ">>>>>>>>  Fin test getCapitulo <<<<<<<<<<<"
+
+manga = listaCapTest("sun_ken_rock2")
+for capitulo in manga.capitulos:
+    print capitulo
+    
+print ">>>>>>>>  Fin test listaCapTest <<<<<<<<<<<"
+
 #listaImagenesTest()
-descargaMagnaTest()
+#descargaMagnaTest()
