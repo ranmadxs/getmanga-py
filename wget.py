@@ -25,7 +25,7 @@ if len(args) > 0 and (args[1] == TYPE.HELP or args[1] == TYPE.H):
 
 if len(args) > 0 and (args[1] == TYPE.L):
     for manga in mangas:
-        print manga
+        print (manga)
     sys.exit(0)
 log.debug('>> Inicio getManga <<')
 

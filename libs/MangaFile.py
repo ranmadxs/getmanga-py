@@ -47,9 +47,13 @@ def renombrarArchivos(mypath='.', prefijo=None, sufijo = '', overflow=7):
         os.rename(pathFile, pathNewFile)
         log.info("Ren %s -> %s"%(fileName, newName))
 
+def getMangaDownloadFolder(code, folder):
+    downloadDir = "%s%s/download/%s"%(config.CONST_PATH, code, folder)
+    return downloadDir
+
 def crearDirectorio(capitulo = Capitulo, manga = Manga):
     stringCode = funciones.prefijo(capitulo.code, len(str(manga.length)))
-    dirName = "%s%s/download/C%s"%(config.CONST_PATH, manga.code, stringCode)
+    dirName = getMangaDownloadFolder(manga.code, "C%s"%stringCode)   
     dirName = funciones.decode(dirName)
     capitulo.folder = dirName
     #if capitulo.length > 0:
@@ -84,13 +88,25 @@ def readFile(archivo):
         None
     return lines
 
-def descargarArchivo(imagen = Imagen, capitulo = Capitulo):
-    filename = imagen.urlReal.split("/")[-1]
-    filePath = '%s/%s' %(capitulo.folder, filename)
-    if(not os.path.isfile(filePath)):
-        log.info('curl %s -o %s/%s'%( imagen.urlReal, capitulo.folder, filename))
-        os.system('curl %s -o %s/%s' % (imagen.urlReal, capitulo.folder, filename))        
-    else:
-        log.error('El archivo [%s] ya existe'% filename)
-    imagen.path = filePath
+def descargarArchivo(imagen = Imagen, capitulo = Capitulo, manga = Manga, fileDownload = None):
+    estado = False
+    try:
+        filename = imagen.urlReal.split("/")[-1]
+        filePath = '%s/%s' %(capitulo.folder, filename)
+        if(not os.path.isfile(filePath)):
+            log.info('curl %s -o %s/%s'%( imagen.urlReal, capitulo.folder, filename))
+            os.system('curl %s -o %s/%s' % (imagen.urlReal, capitulo.folder, filename))        
+        else:
+            log.error('El archivo [%s] ya existe'% filename)
+        imagen.path = filePath
+        estado = True
+    except Exception:
+        log.error("No se pudo descargar la img %s"%imagen.code)
+        estado = False
+    finally:
+            
+        if not estado:
+            file_ = open(fileDownload, 'a')
+            file_.write("%s \t C%s I%s \t %s \n"%(estado, capitulo.code, imagen.code, imagen.urlReal))
+            file_.close()
     return imagen

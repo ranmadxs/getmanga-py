@@ -3,7 +3,11 @@ Created on 17-03-2014
 
 @author: esanchez
 '''
-#TODO: Debo arreglar el programa que baja las caraatulas por que el josting murio y ahora hay uno nuevo
+#TODO: 
+# " nuevo servidor de manga con seleium http://submanga.org/"
+# OFFLINE esmangaonline.com
+# ONLINE submanga.com, es.mangahere.co
+
 
 #http://es.mangahere.co/manga/freezing/
 #http://bato.to
@@ -12,22 +16,25 @@ Created on 17-03-2014
 #http://esmangaonline.com/alive/
 from model.bean import Manga
 CONST_PATH_SRC = '/home/esanchez/lenguajes/python/wget'
-CONST_PATH='/media/Shampoo/Manga/'
+CONST_PATH='/Manga/'
 CONST_FILE_LOG = 'logs.csv'
 CONST_EXCLUSIONS_FILE = "exclusions.txt"
 CONST_INFO_FILE = "info.txt"
+CONST_DOWNLOAD_FILE = "download.txt"
 CONST_MANGA_CFT_FILE = "/home/esanchez/lenguajes/python/wget/list_manga.cfg"
 
 volumenurl = "manga.animea.net"
 #infourl = "https://www.mangaupdates.com/series.html?id=%s"
 
 # MANGA SERVERS
+submanga = "submanga.com"
+submangaorg = "submanga.org"
 
 esmangaonline = "esmangaonline.com"
 eshentaionline = "eshentaionline.com"
-submanga = "submanga.com"
 esmangahere = "es.mangahere.co"
 esmanga = "esmanga.com"
+
 
 ## Nuevo servidor -> http://esmanga.com
 
@@ -57,7 +64,9 @@ mangas = {
     "berserk2"          : Manga("berserk", submanga),    
     "nausica"           : Manga("nausica", submanga, "4565", "nausicaa-of-the-valley-of-the-wind.html"),
     "torre_de_dios"     : Manga("torre_de_dios", esmangahere),
-        
+
+
+    "sun_ken_rock"      :  Manga("sun-ken-rock", submangaorg, 8996, "sun-ken-rock.html"),            
     "sun_ken_rock2"      : Manga("Sun-Ken_Rock", submanga, 8996, "sun-ken-rock.html"),    
     "sun_ken_rock3"      : Manga("Sun-Ken+Rock", esmangaonline, 8996, "sun-ken-rock.html"),
     

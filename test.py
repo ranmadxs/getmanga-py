@@ -24,7 +24,17 @@ from svc import Cover, Esmangahere, VolumenScan
 import HTMLParser
 import threading
 
-########### BASIC DATA TEST ####################3
+########### BASIC DATA TEST ####################
+def capituloZunKenRock():
+    capitulo = Capitulo()
+    capitulo.code = "6"
+    capitulo.url = "http://submanga.org/sun-ken-rock/capitulo/6"
+    capitulo.title = "Zun Ken Rock 6"
+    capitulo.length = 0
+    capitulo.folder = "/Manga/sun_ken_rock/download/C06"
+    return capitulo
+
+
 def capituloZetaman2():    
     capitulo = Capitulo()
     capitulo.code = "14"
@@ -158,16 +168,17 @@ def renombrarArchivosTest():
  ########## Inicio Ejec Test #########
 '''
 
-descargaCaratulasTest()
+#descargaCaratulasTest()
 
-exit(0)
+#exit(0)
 
 import time
 import thread
 
-def worker():
+
+def worker(tiempo):
     print threading.currentThread().getName(), 'Lanzado (Worker)'
-    time.sleep(2)
+    time.sleep(tiempo)
     print threading.currentThread().getName(), 'Deteniendo'
 
 def servicio():
@@ -176,9 +187,9 @@ def servicio():
 
 t = threading.Thread(target=servicio, name='Servicio')
 
-w = threading.Thread(target=worker, name='Worker')
+w = threading.Thread(target=worker, args=(30,), name='Worker.w')
 
-z = threading.Thread(target=worker)
+z = threading.Thread(target=worker, args=(10,), name='Worker.z')
 
 w.start()
 
@@ -186,7 +197,36 @@ z.start()
 
 t.start()
 
+activeCount = threading.active_count()
+print activeCount
 
+print threading.enumerate()
+for t in threading.enumerate():
+    if "Worker" in t.getName():
+        print "Worker activo"
+    print t.getName()
+
+workerActivo = True
+while (workerActivo):
+    workerActivo = False
+    for t in threading.enumerate():
+        if "Worker" in t.getName():
+            workerActivo = True
+
+    
+exit(0)
+
+def workers(num):
+    """thread worker function"""
+    print 'Worker: %s' % num
+    return
+
+threads = []
+for i in range(5):
+    t = threading.Thread(target=workers, args=(i,))
+    threads.append(t)
+    t.start()    
+exit(0)
 
 # Define a function for the thread
 def print_time( threadName, delay):

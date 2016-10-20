@@ -5,7 +5,7 @@ Created on 18-03-2014
 
 @author: esanchez
 '''
-import config, os
+import config, os, time
 from libs import log, funciones
 from libs import MangaGet, MangaFile
 from model import TYPE
@@ -13,6 +13,7 @@ from model.TYPE import ParamDescarga
 from model.bean import Capitulo, Manga 
 from svc import VolumenScan
 from string import Template
+import threading
 
 def infoManga(manga = Manga):
     log.info("[Info Manga] %s"%manga.code)
@@ -66,7 +67,7 @@ def organizarVolumenes(manga = Manga):
             capFin = "C%s"%funciones.prefijo(str(capFin), totPre)
             log.info( "%s ):: %s -> %s"%(volumen.name, capIni, capFin))
             for folder in lstFolder:
-                downloadDir = "%s%s/download/%s"%(config.CONST_PATH, manga.code, folder)
+                downloadDir =  MangaFile.getMangaDownloadFolder(manga.code, folder)
                 if capIni <= folder and folder <= capFin:
                     lstFolderInVol.append(downloadDir)
             if(lstFolderInVol.__len__()> 0):                
@@ -124,32 +125,43 @@ def descargarManga(codigoManga = None, parametros = ParamDescarga):
     for capitulo in manga.capitulos:
         if not (capitulo.code in lstExclusions):
             listCapitulos.append(capitulo)
-            
+    fileTime =  time.strftime("%Y%m%d")       
+    fileDownload = MangaFile.getMangaDownloadFolder(manga.code, "t%s_%s"%(fileTime, config.CONST_DOWNLOAD_FILE))  
     for capitulo in listCapitulos:        
         MangaFile.crearDirectorio(capitulo, manga)
         capitulo = MangaGet.lstImagenes(manga, capitulo)
         totalImgCarpeta = MangaFile.totalArchivosCarpeta(capitulo)
         if(capitulo.length > totalImgCarpeta):
-            for imagen in capitulo.imagenes:
-                retry = False
-                numberRetry = int(0)
-                while (numberRetry == 0 or retry):  
-                    try:       
-                        if retry:
-                            log.error("Error al descargar imágen")
-                            log.info("Retry N° %i"%numberRetry) 
-                            retry = False                            
-                        imagen = MangaGet.obtenerImagen(manga, imagen)
-                        imagen = MangaFile.descargarArchivo(imagen, capitulo)
-                    except AttributeError:    
-                        retry = True
-                    finally:
-                        numberRetry = numberRetry + 1
-            if(manga.site == config.submanga or manga.site == config.esmanga): 
-                MangaFile.renombrarArchivos("%s/"%capitulo.folder, '')      
+            log.debug("Descargando Imágenes del capítulo :: %s" % capitulo.code)
+            file_ = open(fileDownload, 'a')
+            file_.write("====== Resumen C%s ====== \n"%(capitulo.code))
+            file_.close()
+            descargarImagenesCapitulo(manga, capitulo, fileDownload)
+            totalImgCarpeta = MangaFile.totalArchivosCarpeta(capitulo)
+            file_ = open(fileDownload, 'a')
+            file_.write("C%s \t Total:%s \t Descargados:%s \n"%(capitulo.code, capitulo.length, totalImgCarpeta))
+            file_.close()
         else:
-            log.error("Todos los archivos del capitulo %s ya han sido descargados"%capitulo.title)                              
+            log.error("Todos los archivos del capitulo %s ya han sido descargados"%capitulo.title)  
+        
     return manga
+
+def descargarImagenesCapitulo(manga = Manga, capitulo = Capitulo, fileDownload = None):
+    for imagen in capitulo.imagenes:
+        imagen = MangaGet.obtenerImagen(manga, imagen)
+        #imagen = MangaFile.descargarArchivo(imagen, capitulo)
+        t = threading.Thread(target=MangaFile.descargarArchivo, args = (imagen, capitulo, manga, fileDownload), name='WorkerDescargarArchivo.C%s.I%s'%(capitulo.code, imagen.code))
+        t.start()
+        #if(manga.site == config.submanga or manga.site == config.esmanga): 
+        #    MangaFile.renombrarArchivos("%s/"%capitulo.folder, '')
+    
+    #Se espera hasta que todos las imgs del cap esten descargadas hasta seguir con el siguiente cap
+    workerActivo = True
+    while (workerActivo):
+        workerActivo = False
+        for t in threading.enumerate():
+            if "WorkerDescargarArchivo" in t.getName():
+                workerActivo = True          
 
 def exclusionFiles(manga = Manga):
     fileExcl = "%s%s/%s"%(config.CONST_PATH, manga.code, config.CONST_EXCLUSIONS_FILE)

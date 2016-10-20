@@ -7,7 +7,7 @@ Created on 17-03-2014
 '''
 import httplib2, re
 import config
-from svc import Esmangaonline, Submanga, Esmangahere, Esmanga
+from svc import Esmangaonline, Submanga, Esmangahere, Esmanga, Submangaorg
 from libs import log, funciones
 from model.bean import Capitulo, Manga, Imagen
 from model.TYPE import ParamDescarga
@@ -32,6 +32,9 @@ def lstCapitulos(manga = Manga, parametros = ParamDescarga):
                 log.error("Error al obtener capítulos")
                 log.info("Retry N° %i"%numberRetry) 
                 retry = False                        
+            if(manga.site == config.submangaorg):
+                urlCapitulo = Submangaorg.obtenerURLCaps(manga)
+                caps, manga = Submangaorg.obtenerCapitulos(manga, urlCapitulo, parametros)
             if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
                 urlCapitulo = Esmangaonline.obtenerURLCaps(manga)
                 caps, manga = Esmangaonline.obtenerCapitulos(manga, urlCapitulo, parametros)
@@ -54,6 +57,8 @@ def lstCapitulos(manga = Manga, parametros = ParamDescarga):
 def lstImagenes(manga = Manga, capitulo = Capitulo):
     lstImagenes = []
     log.info("http.request[lstImagenes] ==> %s"%capitulo.url)
+    if(manga.site == config.submangaorg):
+        lstImagenes = Submangaorg.obtenerImagenes(manga, capitulo)    
     if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
         lstImagenes = Esmangaonline.obtenerImagenes(capitulo)
     if(manga.site == config.submanga):        
@@ -68,6 +73,11 @@ def lstImagenes(manga = Manga, capitulo = Capitulo):
     return capitulo
 
 def obtenerImagen(manga = Manga, imagen = Imagen):
+    if(manga.site == config.submangaorg):
+        imagen.urlReal = imagen.url
+        imagen.title = imagen.code
+        return imagen
+    
     if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
         pat = re.compile(CONST_EXP_OBT_IMAGEN)
     if(manga.site == config.esmangahere):

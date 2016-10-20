@@ -1,7 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import httplib, re, os
+import codecs
 
+def agregaCeros(codigo, cant):
+    codigoResp = "0%s"%codigo
+    if( len(codigoResp) < cant):
+        codigoResp = agregaCeros(codigoResp, cant)
+    return codigoResp
 
 def splittedname(s):
     return tuple(tryint(x) for x in re.split('([0-9]+)', s[0]))
