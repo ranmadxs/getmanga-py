@@ -33,20 +33,23 @@ def listaCapTest(mangaCode):
     return manga
     #log.info(manga)
 
-#def listaImagenesTest():
-#    manga = mangas['sun_ken_rock']
-#    capitulo = capituloZunKenRock()
-#    MangaGet.lstImagenes(manga, capitulo)
-#    log.info(capitulo)
+def listaImagenesTest(capituloCode, mangaCode):
+    manga = mangas[mangaCode]
+    capitulo = getCapitulo(capituloCode, mangaCode)
+    MangaGet.lstImagenes(manga, capitulo)
+    return capitulo
 
-def descargaMagnaTest():
-    paramDescarga = ParamDescarga('10', TYPE.UNIQUE)
-    Main.descargarManga('sun_ken_rock', paramDescarga)
+def descargaMagnaTest(capituloCode, mangaCode):
+    paramDescarga = ParamDescarga(capituloCode, TYPE.UNIQUE)
+    Main.descargarManga(mangaCode, paramDescarga)
 
 #TInicio est 1
-capitulo = getCapitulo("2", "sun_ken_rock2")
+capitulo = getCapitulo("11", "sun_ken_rock2")
 print capitulo
 print ">>>>>>>>  Fin test getCapitulo <<<<<<<<<<<"
+
+'''
+
 
 manga = listaCapTest("sun_ken_rock2")
 for capitulo in manga.capitulos:
@@ -54,5 +57,11 @@ for capitulo in manga.capitulos:
     
 print ">>>>>>>>  Fin test listaCapTest <<<<<<<<<<<"
 
-#listaImagenesTest()
-#descargaMagnaTest()
+capitulo = listaImagenesTest("2", "sun_ken_rock2")
+for imagen in capitulo.imagenes:
+    print imagen
+print ">>>>>>>>  Fin test listaImagenesTest <<<<<<<<<<<"
+
+'''
+
+descargaMagnaTest("2", "sun_ken_rock")

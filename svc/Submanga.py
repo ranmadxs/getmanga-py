@@ -8,7 +8,18 @@ from model.bean import Capitulo, Manga, Imagen
 from model.TYPE import ParamDescarga
 from libs import log, funciones
 from model import TYPE
+from bs4 import BeautifulSoup
 #"http://submanga.com/claymore/completa"
+
+def obtenerUrlRealImagen (imagen = Imagen):
+    http = httplib2.Http()
+    headers, body = http.request(imagen.url)
+    content = body
+    soup = BeautifulSoup(content, 'html.parser')
+    soupDiv = soup.find("div", {"id": "ab"})
+    soupA = soupDiv.find("a")
+    imagen.urlReal = soupA.img.get("src").encode('utf-8')
+    return imagen
 
 def obtenerImagenes(capitulo = Capitulo):
     http = httplib2.Http()
@@ -20,6 +31,7 @@ def obtenerImagenes(capitulo = Capitulo):
     numberImgs = pat.findall("%s"%body)
     for codeImg in numberImgs:
         imagen = Imagen(codeImg, '%s%s%s'%(capitulo.url, separadorFin, codeImg))
+        imagen = obtenerUrlRealImagen(imagen)
         lstImagenes.append(imagen)
     return lstImagenes
 

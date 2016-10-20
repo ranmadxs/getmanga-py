@@ -21,7 +21,7 @@ url = "http://submanga.org/sun-ken-rock"
 #    print e.fp.read()
 
 http = httplib2.Http()
-
+'''
 headers, body = http.request(url)
 content = body
 #print content
@@ -43,15 +43,17 @@ for row in rows:
     #cols = [ele.text.strip() for ele in cols]
     #print dict["desc"]
     #print "_________________________"
-
+'''
 ######## Prueba 2
 
-url = "http://submanga.org/sun-ken-rock/capitulo/6/es"
+url = "http://submanga.com/c/55716/2"
 headers, body = http.request(url)
 content = body
 #print content
 soup = BeautifulSoup(content, 'html.parser')
-soupDiv = soup.find("div", {"class" : "pagination-bar"})
-totalImgs = soupDiv.get_text().encode('utf-8').replace("/", "")
-print totalImgs
+soupDiv = soup.find("div", {"id": "ab"})
+soupA = soupDiv.find("a")
+print soupA.img.get("src")
+#for row in rows:
+#    print row
 

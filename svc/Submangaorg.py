@@ -11,6 +11,10 @@ from libs import log, funciones
 import httplib2
 from bs4 import BeautifulSoup
 
+def obtenerUrlRealImagen (imagen = Imagen):
+    imagen.urlReal = imagen.url
+    return imagen
+
 def obtenerImagenes(manga = Manga, capitulo = Capitulo):
     lstImagenes = []
     http = httplib2.Http()
@@ -22,6 +26,7 @@ def obtenerImagenes(manga = Manga, capitulo = Capitulo):
     for i in range(1, numberImgs+1):
         urlImg = "http://%s/resources/uploads/manga/%s/capitulo/es/%s/%s.jpg" % (manga.site, manga.uCode, capitulo.code, i)
         imagen = Imagen(i, urlImg)
+        imagen = obtenerUrlRealImagen(imagen)
         lstImagenes.append(imagen)
     return lstImagenes           
 
