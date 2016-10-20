@@ -48,7 +48,7 @@ def listaImagenesTest():
     log.info(capitulo)
 
 def descargaMagnaTest():
-    paramDescarga = ParamDescarga('9', TYPE.UNIQUE)
+    paramDescarga = ParamDescarga('10', TYPE.UNIQUE)
     Main.descargarManga('sun_ken_rock', paramDescarga)
 
 #listaCapTest()

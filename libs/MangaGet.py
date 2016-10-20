@@ -7,7 +7,7 @@ Created on 17-03-2014
 '''
 import httplib2, re
 import config
-from svc import Esmangaonline, Submanga, Esmangahere, Esmanga, Submangaorg
+from svc import Submanga, Esmangahere, Submangaorg
 from libs import log, funciones
 from model.bean import Capitulo, Manga, Imagen
 from model.TYPE import ParamDescarga
@@ -35,18 +35,12 @@ def lstCapitulos(manga = Manga, parametros = ParamDescarga):
             if(manga.site == config.submangaorg):
                 urlCapitulo = Submangaorg.obtenerURLCaps(manga)
                 caps, manga = Submangaorg.obtenerCapitulos(manga, urlCapitulo, parametros)
-            if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
-                urlCapitulo = Esmangaonline.obtenerURLCaps(manga)
-                caps, manga = Esmangaonline.obtenerCapitulos(manga, urlCapitulo, parametros)
             if(manga.site == config.submanga):
                 urlCapitulo = Submanga.obtenerURLCaps(manga)
                 caps, manga = Submanga.obtenerCapitulos(manga, urlCapitulo, parametros)
             if manga.site == config.esmangahere:
                 urlCapitulo = Esmangahere.obtenerURLCaps(manga)
                 caps, manga = Esmangahere.obtenerCapitulos(manga, urlCapitulo, parametros)
-            if manga.site == config.esmanga:
-                urlCapitulo = Esmanga.obtenerURLCaps(manga)
-                caps, manga = Esmanga.obtenerCapitulos(manga, urlCapitulo, parametros)
         except IndexError:                
             retry = True
         finally:
@@ -59,14 +53,10 @@ def lstImagenes(manga = Manga, capitulo = Capitulo):
     log.info("http.request[lstImagenes] ==> %s"%capitulo.url)
     if(manga.site == config.submangaorg):
         lstImagenes = Submangaorg.obtenerImagenes(manga, capitulo)    
-    if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
-        lstImagenes = Esmangaonline.obtenerImagenes(capitulo)
     if(manga.site == config.submanga):        
         lstImagenes = Submanga.obtenerImagenes(capitulo) 
     if manga.site == config.esmangahere:
         lstImagenes = Esmangahere.obtenerImagenes(capitulo, manga)
-    if manga.site == config.esmanga:
-        lstImagenes = Esmanga.obtenerImagenes(capitulo, manga)
 
     capitulo.imagenes = lstImagenes
     capitulo.length = len(lstImagenes)
@@ -77,13 +67,8 @@ def obtenerImagen(manga = Manga, imagen = Imagen):
         imagen.urlReal = imagen.url
         imagen.title = imagen.code
         return imagen
-    
-    if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
-        pat = re.compile(CONST_EXP_OBT_IMAGEN)
     if(manga.site == config.esmangahere):
-        pat = re.compile(CONST_ESMANGAHERE_IMG)        
-    if(manga.site == config.esmanga):
-        pat = re.compile(CONST_ESMANGA_IMG)        
+        pat = re.compile(CONST_ESMANGAHERE_IMG)             
     if(manga.site == config.submanga):
         pat = re.compile('<div><a href="[^"]+"><img src="(.+?)"/></a><br/></div>')
     log.info("http.request[obtenerImagen] ==> %s"%imagen.url)
@@ -95,14 +80,9 @@ def obtenerImagen(manga = Manga, imagen = Imagen):
     arrayImagen = pat.findall("%s"%body)
     log.file (arrayImagen)
     for img in arrayImagen: 
-        if(manga.site == config.esmangaonline or manga.site == config.eshentaionline):
-            imagen.urlReal = img[0]
-            imagen.title = img[1]
         if(manga.site == config.submanga):
             imagen.urlReal = img
         if(manga.site == config.esmangahere):
-            imagen.urlReal = img[0]
-        if(manga.site == config.esmanga):
             imagen.urlReal = img[0]
     return imagen
 

@@ -31,11 +31,11 @@ volumenurl = "manga.animea.net"
 # MANGA SERVERS
 submanga = "submanga.com"
 submangaorg = "submanga.org"
-
-esmangaonline = "esmangaonline.com"
-eshentaionline = "eshentaionline.com"
 esmangahere = "es.mangahere.co"
-esmanga = "esmanga.com"
+
+#esmangaonline = "esmangaonline.com"
+#eshentaionline = "eshentaionline.com"
+#esmanga = "esmanga.com"
 
 
 ## Nuevo servidor -> http://esmanga.com
@@ -49,28 +49,28 @@ MANGA_DEFAULT_SERVER = esmangahere
 # por ejemplo http://mcd.iosphe.re/manga/1037/
 mangas = {    
     "Doubt"             : Manga("Doubt", submanga),
-    "shingeki_no_kyojin": Manga("shingeki_no_kyojin", esmangaonline, "47446"),    
-    "gasuki"            : Manga("Me+gustas+Onii-chan!", eshentaionline),
-    "pandora"           : Manga("pandora-hearts", esmangaonline, "9709"),
-    "alive"             : Manga("alive", esmangaonline),
-    "uzumaki"           : Manga("uzumaki", esmangaonline),
+    #"shingeki_no_kyojin": Manga("shingeki_no_kyojin", esmangaonline, "47446"),    
+    #"gasuki"            : Manga("Me+gustas+Onii-chan!", eshentaionline),
+    #"pandora"           : Manga("pandora-hearts", esmangaonline, "9709"),
+    #"alive"             : Manga("alive", esmangaonline),
+    #"uzumaki"           : Manga("uzumaki", esmangaonline),
     "uzumaki2"          : Manga("uzumaki", submanga),
-    "priest"            : Manga("priest", esmangaonline),
+    #"priest"            : Manga("priest", esmangaonline),
     "yahari"            : Manga("Yahari_Ore_no_Seishun_Love_Come_wa_Machigatteiru", submanga),
-    "is"                : Manga("is", esmangaonline, "3599", "is.html"),
+    #"is"                : Manga("is", esmangaonline, "3599", "is.html"),
     "terraFormars"      : Manga("TERRA_FORMARS", submanga),    
-    "alita"             : Manga("battle-angel-alita", esmangaonline, "2157", "battle-angel-alita.html"),
-    "dance"             : Manga("dance_in_the_vampire_bund", esmangaonline),
-    "allumage"          : Manga("allumage", esmangaonline),    
-    "berserk"           : Manga("berserk", esmangaonline, "88"),
-    "berserk2"          : Manga("berserk", submanga),    
+    #"alita"             : Manga("battle-angel-alita", esmangaonline, "2157", "battle-angel-alita.html"),
+    #"dance"             : Manga("dance_in_the_vampire_bund", esmangaonline),
+    #"allumage"          : Manga("allumage", esmangaonline),    
+    #"berserk"           : Manga("berserk", esmangaonline, "88"),
+    #"berserk2"          : Manga("berserk", submanga),    
     "nausica"           : Manga("nausica", submanga, "4565", "nausicaa-of-the-valley-of-the-wind.html"),
     "torre_de_dios"     : Manga("torre_de_dios", esmangahere),
 
 
     "sun_ken_rock"      :  Manga("sun-ken-rock", submangaorg, 8996, "sun-ken-rock.html", "sun-ken-rock"),            
     "sun_ken_rock2"      : Manga("Sun-Ken_Rock", submanga, 8996, "sun-ken-rock.html", "sun-ken-rock"),    
-    "sun_ken_rock3"      : Manga("Sun-Ken+Rock", esmangaonline, 8996, "sun-ken-rock.html"),
+    #"sun_ken_rock3"      : Manga("Sun-Ken+Rock", esmangaonline, 8996, "sun-ken-rock.html"),
     
     
     #"ant"               : Manga("apocalypse_no_toride", esmangahere, "68982", "apocalypse-no-toride.html"),
