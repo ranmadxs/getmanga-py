@@ -4,7 +4,7 @@ class Manga(AbstractUtilDTO):
     CONSTANT_INFO_URL = "https://www.mangaupdates.com/series.html?id=%s"
     CONSTANT_MANGA_COVERS_URL = "http://mcd.iosphe.re/api/v1/series/%s/"
     id= ""
-    site = ""
+    site = ""    
     code = ""
     url = ""
     length = 0
@@ -12,7 +12,11 @@ class Manga(AbstractUtilDTO):
     cover = None
     urlVolumen = None
     infoUrl = ""
-    def __init__(self, code=None, site=None, idManga=None, urlVolumen=None, length=0, url=None, capitulos = []):
+    uCode = None
+    def __init__(self, code=None, site=None, idManga=None, urlVolumen=None, uCode=None, length=0, url=None, capitulos = []):
+        if (uCode == None):
+            uCode = code
+        self.uCode = uCode
         self.id = idManga
         self.code = code
         self.site = site

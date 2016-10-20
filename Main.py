@@ -17,7 +17,7 @@ import threading
 
 def infoManga(manga = Manga):
     log.info("[Info Manga] %s"%manga.code)
-    fileInfo = "%s%s/%s"%(config.CONST_PATH, manga.code, config.CONST_INFO_FILE)
+    fileInfo = "%s%s/%s"%(config.CONST_PATH, manga.uCode, config.CONST_INFO_FILE)
 
     #open the file template
     filein = open( '%s/tpl/info.tpl'%config.CONST_PATH_SRC )
@@ -67,13 +67,13 @@ def organizarVolumenes(manga = Manga):
             capFin = "C%s"%funciones.prefijo(str(capFin), totPre)
             log.info( "%s ):: %s -> %s"%(volumen.name, capIni, capFin))
             for folder in lstFolder:
-                downloadDir =  MangaFile.getMangaDownloadFolder(manga.code, folder)
+                downloadDir =  MangaFile.getMangaDownloadFolder(manga.uCode, folder)
                 if capIni <= folder and folder <= capFin:
                     lstFolderInVol.append(downloadDir)
             if(lstFolderInVol.__len__()> 0):                
                 volumenName = volumen.name.split(" ")[-1]
-                volumenName = "%s-%s-%s-%s"%(funciones.prefijo(str(volumenName), 2), str(manga.code).title(), capIni, capFin)
-                volumensDir = "%s%s/volumenes/%s"%(config.CONST_PATH, manga.code, volumenName)
+                volumenName = "%s-%s-%s-%s"%(funciones.prefijo(str(volumenName), 2), str(manga.uCode).title(), capIni, capFin)
+                volumensDir = "%s%s/volumenes/%s"%(config.CONST_PATH, manga.uCode, volumenName)
                 volumensDir = volumensDir.replace(' ', '')
                 log.debug("[mkdir] =>%s"%volumensDir)
                 MangaFile.makeDir(volumensDir)
@@ -83,8 +83,8 @@ def organizarVolumenes(manga = Manga):
                     MangaFile.move(folder, destFolder)         
     else:
         log.error("No se han encontrado capítulos en la carpeta download")               
-    volumensDir = "%s%s/volumenes/"  %(config.CONST_PATH, manga.code)
-    coverDir = "%s%s/covers/"  %(config.CONST_PATH, manga.code)
+    volumensDir = "%s%s/volumenes/"  %(config.CONST_PATH, manga.uCode)
+    coverDir = "%s%s/covers/"  %(config.CONST_PATH, manga.uCode)
     lstVolumen = MangaFile.listaArchivosPath(volumensDir)
     lstCovers = MangaFile.listaArchivosPath(coverDir)
     log.info("Poniendo las carátulas en los volúmenes")
@@ -126,7 +126,7 @@ def descargarManga(codigoManga = None, parametros = ParamDescarga):
         if not (capitulo.code in lstExclusions):
             listCapitulos.append(capitulo)
     fileTime =  time.strftime("%Y%m%d")       
-    fileDownload = MangaFile.getMangaDownloadFolder(manga.code, "t%s_%s"%(fileTime, config.CONST_DOWNLOAD_FILE))  
+    fileDownload = MangaFile.getMangaDownloadFolder(manga.uCode, "t%s_%s"%(fileTime, config.CONST_DOWNLOAD_FILE))  
     for capitulo in listCapitulos:        
         MangaFile.crearDirectorio(capitulo, manga)
         capitulo = MangaGet.lstImagenes(manga, capitulo)
@@ -164,7 +164,7 @@ def descargarImagenesCapitulo(manga = Manga, capitulo = Capitulo, fileDownload =
                 workerActivo = True          
 
 def exclusionFiles(manga = Manga):
-    fileExcl = "%s%s/%s"%(config.CONST_PATH, manga.code, config.CONST_EXCLUSIONS_FILE)
+    fileExcl = "%s%s/%s"%(config.CONST_PATH, manga.uCode, config.CONST_EXCLUSIONS_FILE)
     lstExcl = MangaFile.readFile(fileExcl)
     return lstExcl
 

@@ -13,7 +13,7 @@ from model.bean import Capitulo, Manga, Imagen
 from warnings import catch_warnings
 
 def listarArchivosCarpeta(manga = Manga ):
-    dirName = "%s%s/download/"%(config.CONST_PATH, manga.code)
+    dirName = "%s%s/download/"%(config.CONST_PATH, manga.uCode)
     return listaArchivosPath(dirName)
 
 def listaArchivosPath(dirName = None):
@@ -53,7 +53,7 @@ def getMangaDownloadFolder(code, folder):
 
 def crearDirectorio(capitulo = Capitulo, manga = Manga):    
     stringCode = funciones.agregaCeros(capitulo.code, config.CONST_CANTIDAD_CERO_FOLDER)
-    dirName = getMangaDownloadFolder(manga.code, "C%s"%stringCode)   
+    dirName = getMangaDownloadFolder(manga.uCode, "C%s"%stringCode)   
     dirName = funciones.decode(dirName)
     capitulo.folder = dirName
     #if capitulo.length > 0:

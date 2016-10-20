@@ -36,7 +36,7 @@ def descargarImagenCover(folder, imgUrl, filename):
         log.error('El archivo [%s] ya existe'% filename)
     
 def crearDirectorioCaratula(manga = Manga):
-    dirName = "%s%s/covers"%(config.CONST_PATH, manga.code)
+    dirName = "%s%s/covers"%(config.CONST_PATH, manga.uCode)
     if not os.path.exists(dirName):
         os.makedirs(dirName)
         log.info("mkdir %s"%dirName)

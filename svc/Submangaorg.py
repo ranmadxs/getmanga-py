@@ -20,7 +20,7 @@ def obtenerImagenes(manga = Manga, capitulo = Capitulo):
     numberImgs = int(soupDiv.get_text().encode('utf-8').replace("/", ""))
     #http://submanga.org/resources/uploads/manga/sun-ken-rock/capitulo/es/6/5.jpg
     for i in range(1, numberImgs+1):
-        urlImg = "http://%s/resources/uploads/manga/%s/capitulo/es/%s/%s.jpg" % (manga.site, manga.code, capitulo.code, i)
+        urlImg = "http://%s/resources/uploads/manga/%s/capitulo/es/%s/%s.jpg" % (manga.site, manga.uCode, capitulo.code, i)
         imagen = Imagen(i, urlImg)
         lstImagenes.append(imagen)
     return lstImagenes           
@@ -61,5 +61,5 @@ def obtenerCapitulos(manga = Manga, urlCapitulos = '', parametros = ParamDescarg
 
 
 def obtenerURLCaps(manga = Manga):
-    manga.url = 'http://%s/%s'%(manga.site, manga.code)
+    manga.url = 'http://%s/%s'%(manga.site, manga.uCode)
     return manga.url

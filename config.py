@@ -68,8 +68,8 @@ mangas = {
     "torre_de_dios"     : Manga("torre_de_dios", esmangahere),
 
 
-    "sun_ken_rock"      :  Manga("sun-ken-rock", submangaorg, 8996, "sun-ken-rock.html"),            
-    "sun_ken_rock2"      : Manga("Sun-Ken_Rock", submanga, 8996, "sun-ken-rock.html"),    
+    "sun_ken_rock"      :  Manga("sun-ken-rock", submangaorg, 8996, "sun-ken-rock.html", "sun-ken-rock"),            
+    "sun_ken_rock2"      : Manga("Sun-Ken_Rock", submanga, 8996, "sun-ken-rock.html", "sun-ken-rock"),    
     "sun_ken_rock3"      : Manga("Sun-Ken+Rock", esmangaonline, 8996, "sun-ken-rock.html"),
     
     
