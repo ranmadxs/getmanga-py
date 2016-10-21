@@ -3,3 +3,5 @@ __pycache__/
 nbproject/
 .cache/
 .settings/
+.project
+.pydevproject

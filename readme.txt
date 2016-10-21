@@ -1,0 +1,2 @@
+pymp install httplib2
+pymp install beautifulsoup4
