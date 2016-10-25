@@ -43,14 +43,23 @@ def descargaMagnaTest(capituloCode, mangaCode):
     paramDescarga = ParamDescarga(capituloCode, TYPE.UNIQUE)
     Main.descargarManga(mangaCode, paramDescarga)
 
+def organizarVolumenesTest(codManga):
+    manga = mangas[codManga]
+    Main.organizarVolumenes(manga)
+
+def descargaCaratulasTest(codManga):    
+    manga = mangas[codManga]
+    Cover.obtenerCaratulas(manga)
+
+#descargaMagnaTest("56", "sun_ken_rock")
+descargaCaratulasTest("sun_ken_rock")
+#organizarVolumenesTest("sun_ken_rock")
 #TInicio est 1
-capitulo = getCapitulo("11", "sun_ken_rock2")
-print capitulo
-print ">>>>>>>>  Fin test getCapitulo <<<<<<<<<<<"
+#capitulo = getCapitulo("11", "sun_ken_rock2")
+#print capitulo
+#print ">>>>>>>>  Fin test getCapitulo <<<<<<<<<<<"
 
 '''
-
-
 
 
 capitulo = listaImagenesTest("2", "sun_ken_rock2")
@@ -65,7 +74,3 @@ for capitulo in manga.capitulos:
 print ">>>>>>>>  Fin test listaCapTest <<<<<<<<<<<"
 
 '''
-
-
-
-descargaMagnaTest("148", "sun_ken_rock")

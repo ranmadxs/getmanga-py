@@ -22,7 +22,7 @@ def obtenerCaratulas(manga = Manga):
         if not "Error" in data:
             for cover in data["Covers"]["a"]:
             #print cover
-                filename = '%s\\ v%s_%s.jpg'%(data["MUid"], funciones.prefijo(str(cover["Volume"]), 2), cover["Side"])
+                filename = '%s_v%s_%s.jpg'%(data["MUid"], funciones.prefijo(str(cover["Volume"]), 2), cover["Side"])
                 descargarImagenCover(dirName, cover["Raw"], filename)
         else:
             log.error('%s => [%s] %s'% (manga.code, manga.id, data["Error"]))
