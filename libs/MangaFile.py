@@ -64,14 +64,17 @@ def crearDirectorio(capitulo = Capitulo, manga = Manga):
 
 def move(orig=None, dest=None):
     log.debug("[mv] %s -> %s "%(orig, dest))
-    shutil.move(orig, dest)
+    if os.path.isdir(orig) :
+        shutil.move(orig, dest)
+    else:
+        log.error("La carpeta [%s] no exíste "%orig)
 
 def copy(orig=None, dest=None):
     if(not os.path.isfile(dest)):
         log.debug("[cp] %s -> %s "%(orig, dest))
         shutil.copyfile(orig, dest)
     else:
-        log.file("El archivo [%s] ya exíste"%dest)        
+        log.file("El archivo [%s] ya exíste "%dest)        
 
 def makeDir(dirName = None):
     if not os.path.exists(dirName):

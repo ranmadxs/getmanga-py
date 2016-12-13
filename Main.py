@@ -93,10 +93,10 @@ def organizarVolumenes(manga = Manga):
             volFolder = "%s%s"%(volumensDir, volumen)
             log.debug(volFolder)
             numVol = volumen.split("-")[0]
-            frontFile = "%s v%s_front.jpg"%(manga.id, numVol)
-            fullFile = "%s v%s_full.jpg"%(manga.id, numVol)
-            tocFile = "%s v%s_toc.jpg"%(manga.id, numVol)
-            backFile = "%s v%s_back.jpg"%(manga.id, numVol)
+            frontFile = "%s_v%s_front.jpg"%(manga.id, numVol)
+            fullFile = "%s_v%s_full.jpg"%(manga.id, numVol)
+            tocFile = "%s_v%s_toc.jpg"%(manga.id, numVol)
+            backFile = "%s_v%s_back.jpg"%(manga.id, numVol)
             if (frontFile in lstCovers):
                 origen = "%s%s"%(coverDir,frontFile)
                 destino = "%s/001_front.jpg"%(volFolder)                

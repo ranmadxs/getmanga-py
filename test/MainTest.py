@@ -22,6 +22,12 @@ class TestMainMethods(ParametrizedTestCase):
         manga = mangas[mangaCode]
         Main.infoManga(manga)
 
+    def testOrganizarVolumenes(self):
+        print self.param
+        mangaCode = self.param["mangaCode"]
+        manga = mangas[mangaCode]
+        Main.organizarVolumenes(manga)
+
 if __name__ == '__main__':
     suite = unittest.TestSuite()
     suite.addTest(ParametrizedTestCase.parametrize(TestMainMethods, param={"mangaCode" : "sun_ken_rock"}))
