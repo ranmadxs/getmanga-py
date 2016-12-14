@@ -1,2 +1,2 @@
-pymp install httplib2
-pymp install beautifulsoup4
+pypm install httplib2
+pypm install beautifulsoup4
